@@ -36,6 +36,21 @@ class Command(BaseCommand):
             action='store_true',
             help='Enable debug mode with detailed API responses',
         )
+        parser.add_argument(
+            '--auth-url',
+            action='store_true',
+            help='Generate authorization URL for user token',
+        )
+        parser.add_argument(
+            '--exchange-code',
+            type=str,
+            help='Exchange authorization code for access token',
+        )
+        parser.add_argument(
+            '--auto-auth',
+            action='store_true',
+            help='Test automatic authentication strategies',
+        )
 
     def handle(self, *args, **options):
         # Load environment variables from .env file
@@ -55,6 +70,12 @@ class Command(BaseCommand):
                 self.test_orders_api()
             elif options['auth']:
                 self.test_authentication()
+            elif options['auth_url']:
+                self.generate_auth_url()
+            elif options['exchange_code']:
+                self.exchange_code_for_token(options['exchange_code'])
+            elif options['auto_auth']:
+                self.test_automatic_auth_strategies()
             elif options['full']:
                 self.test_full_api()
             else:
@@ -126,47 +147,300 @@ class Command(BaseCommand):
         return True
 
     def get_access_token(self):
-        """Get access token using client credentials flow"""
+        """Get access token using client credentials flow with proper scopes"""
         try:
             url = f"{os.environ['MERCADOLIBRE_URL']}/oauth/token"
             
-            data = {
-                'grant_type': 'client_credentials',
-                'client_id': os.environ['MERCADOLIBRE_APP_ID'],
-                'client_secret': os.environ['MERCADOLIBRE_SECRET_KEY']
-            }
+            # Try different grant types and scopes for automatic authentication
+            auth_methods = [
+                {
+                    'name': 'Client Credentials with scopes',
+                    'data': {
+                        'grant_type': 'client_credentials',
+                        'client_id': os.environ['MERCADOLIBRE_APP_ID'],
+                        'client_secret': os.environ['MERCADOLIBRE_SECRET_KEY'],
+                        'scope': 'read write offline_access'
+                    }
+                },
+                {
+                    'name': 'Client Credentials without scopes',
+                    'data': {
+                        'grant_type': 'client_credentials',
+                        'client_id': os.environ['MERCADOLIBRE_APP_ID'],
+                        'client_secret': os.environ['MERCADOLIBRE_SECRET_KEY']
+                    }
+                }
+            ]
             
-            if self.debug_mode:
-                self.stdout.write(f"🔍 Debug: Requesting token from {url}")
-                self.stdout.write(f"🔍 Debug: Client ID: {os.environ['MERCADOLIBRE_APP_ID']}")
-                self.stdout.write(f"🔍 Debug: Data: {data}")
-            
-            response = requests.post(url, data=data)
-            
-            if self.debug_mode:
-                self.stdout.write(f"🔍 Debug: Response status: {response.status_code}")
-                self.stdout.write(f"🔍 Debug: Response headers: {dict(response.headers)}")
-                self.stdout.write(f"🔍 Debug: Response body: {response.text[:500]}...")
-            
-            if response.status_code == 200:
-                token_data = response.json()
-                access_token = token_data.get('access_token')
+            for method in auth_methods:
+                if self.debug_mode:
+                    self.stdout.write(f"🔍 Debug: Trying {method['name']}")
+                    self.stdout.write(f"🔍 Debug: Requesting token from {url}")
+                    self.stdout.write(f"🔍 Debug: Data: {method['data']}")
+                
+                response = requests.post(url, data=method['data'])
                 
                 if self.debug_mode:
-                    self.stdout.write(f"🔍 Debug: Access token obtained: {access_token[:20]}..." if access_token else "🔍 Debug: No access token in response")
+                    self.stdout.write(f"🔍 Debug: Response status: {response.status_code}")
+                    self.stdout.write(f"🔍 Debug: Response body: {response.text[:500]}...")
                 
-                return access_token
-            else:
-                self.stdout.write(
-                    self.style.ERROR(f"❌ Failed to get access token: {response.status_code} - {response.text}")
-                )
-                return None
+                if response.status_code == 200:
+                    token_data = response.json()
+                    access_token = token_data.get('access_token')
+                    
+                    if access_token:
+                        self.stdout.write(f"✅ Successfully obtained token using {method['name']}")
+                        if self.debug_mode:
+                            self.stdout.write(f"🔍 Debug: Access token: {access_token[:20]}...")
+                        return access_token
+                else:
+                    if self.debug_mode:
+                        self.stdout.write(f"🔍 Debug: {method['name']} failed: {response.status_code} - {response.text}")
+            
+            # If all methods failed, show the last error
+            self.stdout.write(
+                self.style.ERROR(f"❌ All authentication methods failed. Last error: {response.status_code} - {response.text}")
+            )
+            return None
                 
         except Exception as e:
             self.stdout.write(
                 self.style.ERROR(f"❌ Error getting access token: {e}")
             )
             return None
+
+    def get_user_access_token(self):
+        """Get user access token using authorization code flow"""
+        try:
+            # Check if we have a stored user access token
+            user_token = os.environ.get('MERCADOLIBRE_USER_TOKEN')
+            if user_token:
+                self.stdout.write("✅ Using stored user access token")
+                return user_token
+            
+            # If no stored token, show instructions for getting one
+            self.stdout.write(
+                self.style.WARNING("⚠️ No user access token found. Search API requires user authorization.")
+            )
+            self.stdout.write("")
+            self.stdout.write("🔧 To get a user access token, follow these steps:")
+            self.stdout.write("")
+            self.stdout.write("1. Create authorization URL:")
+            self.stdout.write(f"   https://auth.mercadolibre.com.mx/authorization?response_type=code&client_id={os.environ['MERCADOLIBRE_APP_ID']}&redirect_uri={os.environ.get('MERCADOLIBRE_REDIRECT_URI', 'https://forttuna.azurewebsites.net/app/main/salechannel/authorization')}")
+            self.stdout.write("")
+            self.stdout.write("2. Open the URL in your browser")
+            self.stdout.write("3. Authorize your application")
+            self.stdout.write("4. Copy the 'code' parameter from the redirect URL")
+            self.stdout.write("5. Add MERCADOLIBRE_USER_TOKEN to your .env.local file")
+            self.stdout.write("")
+            self.stdout.write("📚 Full documentation:")
+            self.stdout.write("https://developers.mercadolibre.com.mx/es_ar/autenticacion-y-autorizacion")
+            self.stdout.write("")
+            
+            # For now, return None to indicate no user token
+            return None
+                
+        except Exception as e:
+            self.stdout.write(
+                self.style.ERROR(f"❌ Error getting user access token: {e}")
+            )
+            return None
+
+    def exchange_code_for_token(self, authorization_code):
+        """Exchange authorization code for access token"""
+        try:
+            url = f"{os.environ['MERCADOLIBRE_URL']}/oauth/token"
+            
+            data = {
+                'grant_type': 'authorization_code',
+                'client_id': os.environ['MERCADOLIBRE_APP_ID'],
+                'client_secret': os.environ['MERCADOLIBRE_SECRET_KEY'],
+                'code': authorization_code,
+                'redirect_uri': os.environ.get('MERCADOLIBRE_REDIRECT_URI', 'https://forttuna.azurewebsites.net/app/main/salechannel/authorization')
+            }
+            
+            response = requests.post(url, data=data)
+            
+            if response.status_code == 200:
+                token_data = response.json()
+                access_token = token_data.get('access_token')
+                refresh_token = token_data.get('refresh_token')
+                
+                self.stdout.write("✅ Successfully exchanged code for access token")
+                self.stdout.write(f"   Access token: {access_token[:20]}...")
+                if refresh_token:
+                    self.stdout.write(f"   Refresh token: {refresh_token[:20]}...")
+                
+                return access_token
+            else:
+                self.stdout.write(
+                    self.style.ERROR(f"❌ Failed to exchange code: {response.status_code} - {response.text}")
+                )
+                return None
+                
+        except Exception as e:
+            self.stdout.write(
+                self.style.ERROR(f"❌ Error exchanging code: {e}")
+            )
+            return None
+
+    def generate_auth_url(self):
+        """Generate authorization URL for user token"""
+        try:
+            self.stdout.write("🔗 Generating MercadoLibre Authorization URL...")
+            self.stdout.write("=" * 60)
+            
+            app_id = os.environ.get('MERCADOLIBRE_APP_ID')
+            redirect_uri = os.environ.get('MERCADOLIBRE_REDIRECT_URI', 'https://forttuna.azurewebsites.net/app/main/salechannel/authorization')
+            
+            if not app_id:
+                self.stdout.write(
+                    self.style.ERROR("❌ MERCADOLIBRE_APP_ID not found in environment variables")
+                )
+                return
+            
+            auth_url = f"https://auth.mercadolibre.com.mx/authorization?response_type=code&client_id={app_id}&redirect_uri={redirect_uri}"
+            
+            self.stdout.write("✅ Authorization URL generated:")
+            self.stdout.write("")
+            self.stdout.write(auth_url)
+            self.stdout.write("")
+            self.stdout.write("📋 Instructions:")
+            self.stdout.write("1. Copy and paste this URL in your browser")
+            self.stdout.write("2. Log in to your MercadoLibre account")
+            self.stdout.write("3. Authorize the application")
+            self.stdout.write("4. Copy the 'code' parameter from the redirect URL")
+            self.stdout.write("5. Run: python manage.py test_meli_api --exchange-code YOUR_CODE")
+            self.stdout.write("")
+            self.stdout.write("💡 The redirect URL will look like:")
+            self.stdout.write(f"   {redirect_uri}?code=YOUR_AUTHORIZATION_CODE")
+            
+        except Exception as e:
+            self.stdout.write(
+                self.style.ERROR(f"❌ Error generating auth URL: {e}")
+            )
+
+    def test_automatic_auth_strategies(self):
+        """Test different automatic authentication strategies"""
+        self.stdout.write("🔐 Testing Automatic Authentication Strategies...")
+        self.stdout.write("=" * 60)
+        
+        strategies = [
+            {
+                'name': 'Client Credentials with scopes',
+                'method': 'client_credentials',
+                'scopes': 'read write offline_access'
+            },
+            {
+                'name': 'Client Credentials without scopes',
+                'method': 'client_credentials',
+                'scopes': None
+            },
+            {
+                'name': 'Public endpoints (no auth)',
+                'method': 'public',
+                'scopes': None
+            }
+        ]
+        
+        working_strategies = []
+        
+        for strategy in strategies:
+            self.stdout.write(f"\n🔍 Testing: {strategy['name']}")
+            
+            try:
+                if strategy['method'] == 'client_credentials':
+                    # Test client credentials
+                    url = f"{os.environ['MERCADOLIBRE_URL']}/oauth/token"
+                    data = {
+                        'grant_type': 'client_credentials',
+                        'client_id': os.environ['MERCADOLIBRE_APP_ID'],
+                        'client_secret': os.environ['MERCADOLIBRE_SECRET_KEY']
+                    }
+                    
+                    if strategy['scopes']:
+                        data['scope'] = strategy['scopes']
+                    
+                    response = requests.post(url, data=data)
+                    
+                    if response.status_code == 200:
+                        token_data = response.json()
+                        access_token = token_data.get('access_token')
+                        
+                        if access_token:
+                            # Test the token with a simple API call
+                            headers = {
+                                'Authorization': f'Bearer {access_token}',
+                                'Content-Type': 'application/json'
+                            }
+                            
+                            # Test with user info endpoint
+                            user_id = os.environ['MERCADOLIBRE_USER']
+                            test_url = f"{os.environ['MERCADOLIBRE_URL']}/users/{user_id}"
+                            test_response = requests.get(test_url, headers=headers)
+                            
+                            if test_response.status_code == 200:
+                                working_strategies.append({
+                                    'name': strategy['name'],
+                                    'token': access_token,
+                                    'method': 'client_credentials'
+                                })
+                                self.stdout.write(
+                                    self.style.SUCCESS(f"     ✅ {strategy['name']} works!")
+                                )
+                            else:
+                                self.stdout.write(
+                                    self.style.WARNING(f"     ⚠️ Token obtained but API test failed: {test_response.status_code}")
+                                )
+                        else:
+                            self.stdout.write(
+                                self.style.ERROR(f"     ❌ No access token in response")
+                            )
+                    else:
+                        self.stdout.write(
+                            self.style.ERROR(f"     ❌ Failed: {response.status_code} - {response.text}")
+                        )
+                
+                elif strategy['method'] == 'public':
+                    # Test public endpoints
+                    site_id = os.environ['MERCADOLIBRE_SITE']
+                    test_url = f"{os.environ['MERCADOLIBRE_URL']}/sites/{site_id}/categories"
+                    response = requests.get(test_url)
+                    
+                    if response.status_code == 200:
+                        working_strategies.append({
+                            'name': strategy['name'],
+                            'token': None,
+                            'method': 'public'
+                        })
+                        self.stdout.write(
+                            self.style.SUCCESS(f"     ✅ {strategy['name']} works!")
+                        )
+                    else:
+                        self.stdout.write(
+                            self.style.ERROR(f"     ❌ Failed: {response.status_code}")
+                        )
+                        
+            except Exception as e:
+                self.stdout.write(
+                    self.style.ERROR(f"     ❌ Exception: {e}")
+                )
+        
+        # Summary
+        self.stdout.write("\n" + "=" * 60)
+        self.stdout.write("📊 AUTHENTICATION STRATEGIES SUMMARY")
+        self.stdout.write("=" * 60)
+        self.stdout.write(f"✅ Working strategies: {len(working_strategies)}")
+        self.stdout.write(f"📈 Total strategies tested: {len(strategies)}")
+        
+        if working_strategies:
+            self.stdout.write("\n🏆 WORKING STRATEGIES:")
+            for strategy in working_strategies:
+                self.stdout.write(f"   ✅ {strategy['name']}")
+                if strategy['token']:
+                    self.stdout.write(f"      Token: {strategy['token'][:20]}...")
+        
+        return working_strategies
 
     def test_authentication(self):
         """Test only the authentication with MercadoLibre API"""
@@ -285,6 +559,7 @@ class Command(BaseCommand):
             
             # Test 2: Categories API
             self.stdout.write("\n📂 Testing Categories API...")
+            categories_data = None
             try:
                 site_id = os.environ['MERCADOLIBRE_SITE']
                 categories_url = f"{os.environ['MERCADOLIBRE_URL']}/sites/{site_id}/categories"
@@ -297,6 +572,12 @@ class Command(BaseCommand):
                         self.style.SUCCESS("✅ Categories API working correctly")
                     )
                     self.stdout.write(f"   Categories available: {len(categories_data)}")
+                    
+                    # Show all categories
+                    if categories_data and len(categories_data) > 0:
+                        self.stdout.write("   All categories:")
+                        for i, category in enumerate(categories_data):
+                            self.stdout.write(f"     {i+1:2d}. {category.get('name', 'N/A')} (ID: {category.get('id', 'N/A')})")
                 else:
                     self.stdout.write(
                         self.style.ERROR(f"❌ Categories API failed: {response.status_code}")
@@ -307,34 +588,137 @@ class Command(BaseCommand):
                     self.style.ERROR(f"❌ Categories API test failed: {e}")
                 )
             
-            # Test 3: Search API
-            self.stdout.write("\n🔍 Testing Search API...")
-            try:
-                site_id = os.environ['MERCADOLIBRE_SITE']
-                search_url = f"{os.environ['MERCADOLIBRE_URL']}/sites/{site_id}/search"
-                
-                params = {
-                    'q': 'laptop',
-                    'limit': 5
-                }
-                
-                response = requests.get(search_url, headers=headers, params=params)
-                
-                if response.status_code == 200:
-                    search_data = response.json()
-                    self.stdout.write(
-                        self.style.SUCCESS("✅ Search API working correctly")
-                    )
-                    self.stdout.write(f"   Results found: {search_data.get('paging', {}).get('total', 0)}")
-                else:
-                    self.stdout.write(
-                        self.style.ERROR(f"❌ Search API failed: {response.status_code}")
-                    )
-                    
-            except Exception as e:
+            # Test 3: Search API - Test with user authentication
+            self.stdout.write("\n🔍 Testing Search API with user authentication...")
+            
+            if not categories_data or len(categories_data) == 0:
                 self.stdout.write(
-                    self.style.ERROR(f"❌ Search API test failed: {e}")
+                    self.style.WARNING("⚠️ No categories available for testing")
                 )
+                return
+            
+            working_categories = []
+            non_working_categories = []
+            
+            # Try different authentication strategies
+            self.stdout.write("\n   Testing different authentication strategies...")
+            
+            # Strategy 1: Try with client credentials token
+            client_token = self.get_access_token()
+            if client_token:
+                self.stdout.write("   ✅ Client credentials token obtained")
+                search_headers = {
+                    'Authorization': f'Bearer {client_token}',
+                    'Content-Type': 'application/json'
+                }
+            else:
+                self.stdout.write("   ⚠️ Client credentials failed, trying public endpoints...")
+                search_headers = {}  # No headers for public endpoints
+                
+                try:
+                    site_id = os.environ['MERCADOLIBRE_SITE']
+                    search_url = f"{os.environ['MERCADOLIBRE_URL']}/sites/{site_id}/search"
+                    
+                    # Test with user authentication
+                    for i, category in enumerate(categories_data, 1):
+                        category_name = category.get('name', 'Unknown')
+                        category_id = category.get('id', 'Unknown')
+                        
+                        self.stdout.write(f"\n   Testing category {i}/{len(categories_data)}: {category_name}")
+                        
+                        try:
+                            params = {
+                                'q': category_name,
+                                'limit': 1
+                            }
+                            
+                            response = requests.get(search_url, headers=search_headers, params=params)
+                            
+                            if response.status_code == 200:
+                                search_data = response.json()
+                                total_results = search_data.get('paging', {}).get('total', 0)
+                                
+                                if total_results > 0:
+                                    working_categories.append({
+                                        'name': category_name,
+                                        'id': category_id,
+                                        'results': total_results
+                                    })
+                                    self.stdout.write(
+                                        self.style.SUCCESS(f"     ✅ {total_results} results found")
+                                    )
+                                else:
+                                    non_working_categories.append({
+                                        'name': category_name,
+                                        'id': category_id
+                                    })
+                                    self.stdout.write(
+                                        self.style.WARNING(f"     ⚠️ No results found")
+                                    )
+                            else:
+                                non_working_categories.append({
+                                    'name': category_name,
+                                    'id': category_id
+                                })
+                                self.stdout.write(
+                                    self.style.ERROR(f"     ❌ API error: {response.status_code}")
+                                )
+                                
+                        except Exception as e:
+                            non_working_categories.append({
+                                'name': category_name,
+                                'id': category_id
+                            })
+                            self.stdout.write(
+                                self.style.ERROR(f"     ❌ Exception: {e}")
+                            )
+                            
+                except Exception as e:
+                    self.stdout.write(
+                        self.style.ERROR(f"     ❌ Search test failed: {e}")
+                    )
+            
+            # Summary
+            self.stdout.write("\n" + "=" * 60)
+            self.stdout.write("📊 SEARCH TEST SUMMARY")
+            self.stdout.write("=" * 60)
+            self.stdout.write(f"✅ Working categories: {len(working_categories)}")
+            self.stdout.write(f"❌ Non-working categories: {len(non_working_categories)}")
+            self.stdout.write(f"📈 Total categories tested: {len(categories_data)}")
+            
+            if working_categories:
+                self.stdout.write("\n🏆 TOP 10 WORKING CATEGORIES:")
+                # Sort by number of results (descending)
+                sorted_working = sorted(working_categories, key=lambda x: x['results'], reverse=True)
+                for i, category in enumerate(sorted_working[:10], 1):
+                    self.stdout.write(f"   {i:2d}. {category['name']} - {category['results']:,} results")
+            
+            if non_working_categories:
+                self.stdout.write("\n⚠️ NON-WORKING CATEGORIES:")
+                for category in non_working_categories:
+                    self.stdout.write(f"   - {category['name']} (ID: {category['id']})")
+            
+            # Add explanation about 403 errors
+            self.stdout.write("\n" + "=" * 60)
+            self.stdout.write("🔍 TROUBLESHOOTING: 403 ERRORS")
+            self.stdout.write("=" * 60)
+            self.stdout.write("❓ Why do you get 403 errors?")
+            self.stdout.write("")
+            self.stdout.write("The 403 error occurs because:")
+            self.stdout.write("1. 🔐 Search API requires user authorization (not just client credentials)")
+            self.stdout.write("2. 📋 You need specific scopes: 'read', 'offline_access'")
+            self.stdout.write("3. 👤 The user must authorize your application")
+            self.stdout.write("")
+            self.stdout.write("🔧 To fix this, you need to:")
+            self.stdout.write("1. Implement OAuth 2.0 Authorization Code flow")
+            self.stdout.write("2. Redirect user to MercadoLibre authorization URL")
+            self.stdout.write("3. Get authorization code from callback")
+            self.stdout.write("4. Exchange code for user access token")
+            self.stdout.write("")
+            self.stdout.write("📚 Documentation:")
+            self.stdout.write("https://developers.mercadolibre.com.mx/es_ar/autenticacion-y-autorizacion")
+            self.stdout.write("")
+            self.stdout.write("💡 For now, the test uses public endpoints where possible")
             
             self.stdout.write("\n" + "=" * 50)
             self.stdout.write(
