@@ -15,8 +15,38 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from clients.views import ClientViewSet, ClientMarketplaceCredentialsViewSet
+from products.views import ProductViewSet, BrandViewSet, SubBrandViewSet, ProviderViewSet
+from marketplaces.views import (
+    MarketplaceListingViewSet, ProductMatchViewSet, ProductPriceHistoryViewSet,
+    ProductTracingViewSet, ProductTracingHistoryViewSet
+)
+from orders.views import OrderViewSet, OrderItemViewSet
+from feedback.views import CustomerFeedbackViewSet
+from analytics.views import ApiLogViewSet
+
+# Create router and register viewsets
+router = DefaultRouter()
+router.register(r'clients', ClientViewSet)
+router.register(r'marketplace-credentials', ClientMarketplaceCredentialsViewSet)
+router.register(r'products', ProductViewSet)
+router.register(r'brands', BrandViewSet)
+router.register(r'subbrands', SubBrandViewSet)
+router.register(r'providers', ProviderViewSet)
+router.register(r'marketplace-listings', MarketplaceListingViewSet)
+router.register(r'product-matches', ProductMatchViewSet)
+router.register(r'price-history', ProductPriceHistoryViewSet)
+router.register(r'product-tracing', ProductTracingViewSet)
+router.register(r'tracing-history', ProductTracingHistoryViewSet)
+router.register(r'orders', OrderViewSet)
+router.register(r'order-items', OrderItemViewSet)
+router.register(r'customer-feedback', CustomerFeedbackViewSet)
+router.register(r'api-logs', ApiLogViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
 ]

@@ -4,9 +4,14 @@ certifi==2025.7.14
 charset-normalizer==3.4.2
 confuse==2.0.1
 Django==5.2.4
+djangorestframework==3.15.2
+django-filter==24.5
+django-cors-headers==4.4.0
 idna==3.10
 python-amazon-sp-api==1.9.46
 PyYAML==6.0.2
+pydantic==2.10.4
+pydantic-settings==2.6.1
 requests==2.32.4
 six==1.17.0
 sqlparse==0.5.3
