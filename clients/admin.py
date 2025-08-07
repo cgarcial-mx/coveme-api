@@ -6,7 +6,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.contrib.admin import AdminSite
 from .models import Client, ClientMarketplaceCredentials
-from .utils import test_marketplace_connection
+from .utils import test_marketplace_connection, sync_products_listings
 
 class CustomAdminSite(AdminSite):
     """Custom admin site with additional CSS"""
@@ -24,7 +24,7 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(ClientMarketplaceCredentials)
 class ClientMarketplaceCredentialsAdmin(admin.ModelAdmin):
-    list_display = ['client', 'marketplace_type', 'connection_status_display', 'last_sync_at', 'test_connection_button']
+    list_display = ['client', 'marketplace_type', 'connection_status_display', 'last_sync_at', 'test_connection_button', 'sync_products_button']
     list_filter = ['marketplace_type', 'connection_status']
     search_fields = ['client__name']
     readonly_fields = ['connection_status', 'last_sync_at', 'last_error', 'created_at', 'updated_at']
@@ -72,11 +72,22 @@ class ClientMarketplaceCredentialsAdmin(admin.ModelAdmin):
         if obj.pk:
             return format_html(
                 '<a class="test-connection-button" href="{}">Test Connection</a>',
-                f'admin:clients_clientmarketplacecredentials_test_connection'
+                f'/admin/clients/clientmarketplacecredentials/{obj.pk}/test-connection/'
             )
         return "Save first to test"
     test_connection_button.short_description = 'Test Connection'
     test_connection_button.allow_tags = True
+    
+    def sync_products_button(self, obj):
+        """Display sync products button"""
+        if obj.pk:
+            return format_html(
+                '<a class="sync-products-button" href="{}">Sync Products</a>',
+                f'/admin/clients/clientmarketplacecredentials/{obj.pk}/sync-products/'
+            )
+        return "Save first to sync"
+    sync_products_button.short_description = 'Sync Products'
+    sync_products_button.allow_tags = True
     
     def get_urls(self):
         urls = super().get_urls()
@@ -85,6 +96,11 @@ class ClientMarketplaceCredentialsAdmin(admin.ModelAdmin):
                 '<int:object_id>/test-connection/',
                 self.admin_site.admin_view(self.test_connection_view),
                 name='clients_clientmarketplacecredentials_test_connection',
+            ),
+            path(
+                '<int:object_id>/sync-products/',
+                self.admin_site.admin_view(self.sync_products_view),
+                name='clients_clientmarketplacecredentials_sync_products',
             ),
         ]
         return custom_urls + urls
@@ -114,6 +130,37 @@ class ClientMarketplaceCredentialsAdmin(admin.ModelAdmin):
             messages.error(request, "Credential not found")
         except Exception as e:
             messages.error(request, f"Error testing connection: {str(e)}")
+        
+        # Redirect back to the change form
+        return HttpResponseRedirect(
+            f'/admin/clients/clientmarketplacecredentials/{object_id}/change/'
+        )
+    
+    def sync_products_view(self, request, object_id):
+        """Handle sync products request"""
+        try:
+            credentials = ClientMarketplaceCredentials.objects.get(pk=object_id)
+            
+            # Sync products and listings
+            success, message = sync_products_listings(credentials)
+            
+            if success:
+                # Update last sync timestamp
+                from django.utils import timezone
+                credentials.last_sync_at = timezone.now()
+                credentials.last_error = None
+                messages.success(request, f"✅ {message}")
+            else:
+                # Update error status
+                credentials.last_error = message
+                messages.error(request, f"❌ {message}")
+            
+            credentials.save()
+            
+        except ClientMarketplaceCredentials.DoesNotExist:
+            messages.error(request, "Credential not found")
+        except Exception as e:
+            messages.error(request, f"Error syncing products: {str(e)}")
         
         # Redirect back to the change form
         return HttpResponseRedirect(
