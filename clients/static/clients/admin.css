@@ -1,0 +1,64 @@
+/* Custom styles for Client Marketplace Credentials Admin */
+
+.test-connection-button {
+    background-color: #417690 !important;
+    color: white !important;
+    padding: 5px 10px !important;
+    text-decoration: none !important;
+    border-radius: 3px !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.test-connection-button:hover {
+    background-color: #2c5aa0 !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.connection-status-connected {
+    color: #28a745 !important;
+    font-weight: bold !important;
+}
+
+.connection-status-disconnected {
+    color: #ffc107 !important;
+    font-weight: bold !important;
+}
+
+.connection-status-error {
+    color: #dc3545 !important;
+    font-weight: bold !important;
+}
+
+/* Improve table layout */
+.field-test_connection_button {
+    text-align: center;
+    width: 120px;
+}
+
+.field-connection_status_display {
+    width: 100px;
+}
+
+/* Error message styling */
+.error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.success-message {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
