@@ -18,16 +18,31 @@ class CustomAdminSite(AdminSite):
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ['name', 'subscription_plan', 'status', 'created_at']
+    list_display = ['name', 'subscription_plan', 'status', 'api_quota', 'api_usage', 'user_count', 'created_at']
     list_filter = ['subscription_plan', 'status']
     search_fields = ['name', 'tax_id']
+    readonly_fields = ['subscription_start', 'api_usage', 'user_count']
+    
+    fieldsets = (
+        ('Información Básica', {
+            'fields': ('name', 'tax_id', 'status')
+        }),
+        ('Suscripción', {
+            'fields': ('subscription_plan', 'subscription_start', 'subscription_end', 'auto_renew')
+        }),
+        ('Límites y Uso', {
+            'fields': ('api_quota', 'api_usage', 'user_count'),
+            'description': 'El uso de API se actualiza automáticamente'
+        }),
+    )
 
 @admin.register(ClientMarketplaceCredentials)
 class ClientMarketplaceCredentialsAdmin(admin.ModelAdmin):
     list_display = ['client', 'marketplace_type', 'connection_status_display', 'last_sync_at', 'test_connection_button', 'sync_products_button']
     list_filter = ['marketplace_type', 'connection_status']
     search_fields = ['client__name']
-    readonly_fields = ['connection_status', 'last_sync_at', 'last_error', 'created_at', 'updated_at']
+    readonly_fields = ['created_at', 'updated_at', 'last_sync_at', 'last_error']
+    
     fieldsets = (
         ('Basic Information', {
             'fields': ('client', 'marketplace_type', 'marketplace_name')
