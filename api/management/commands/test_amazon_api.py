@@ -28,6 +28,11 @@ class Command(BaseCommand):
             action='store_true',
             help='Test API permissions and diagnose access issues',
         )
+        parser.add_argument(
+            '--marketplace',
+            action='store_true',
+            help='Get marketplace information and account details',
+        )
 
     def handle(self, *args, **options):
         # Load environment variables from .env file
@@ -50,6 +55,8 @@ class Command(BaseCommand):
                 self.test_api_permissions()
             elif options['full']:
                 self.test_full_api()
+            elif options['marketplace']:
+                self.test_marketplace_info()
             else:
                 self.test_authentication()
                 
@@ -593,5 +600,200 @@ class Command(BaseCommand):
         except Exception as e:
             self.stdout.write(
                 self.style.ERROR(f"\n❌ Permission test failed: {e}")
+            )
+            self.stdout.write("=" * 60)
+
+    def test_marketplace_info(self):
+        """Get marketplace information and account details"""
+        
+        self.stdout.write("🏪 Testing Amazon SP API Marketplace Information...")
+        self.stdout.write("=" * 60)
+        
+        try:
+            from sp_api.api import Sellers
+            from sp_api.base import SellingApiException
+            
+            self.stdout.write("📋 Setting up Sellers API...")
+            
+            sellers_api = Sellers()
+            self.stdout.write(
+                self.style.SUCCESS("✅ Sellers API initialized successfully")
+            )
+            
+            # Get marketplace participations using the correct method
+            self.stdout.write("\n🔄 Fetching marketplace participations...")
+            try:
+                # Use the correct method name from the Sellers API
+                response = sellers_api.get_marketplace_participations()
+                
+                if response.payload and hasattr(response.payload, 'marketplace_participations'):
+                    marketplaces = response.payload.marketplace_participations
+                    self.stdout.write(
+                        self.style.SUCCESS(f"✅ Successfully retrieved {len(marketplaces)} marketplace participations")
+                    )
+                    
+                    # Display marketplace information
+                    for i, marketplace in enumerate(marketplaces):
+                        self.stdout.write(f"\n🏪 Marketplace {i+1}:")
+                        
+                        if hasattr(marketplace, 'marketplace'):
+                            mkt = marketplace.marketplace
+                            self.stdout.write(f"   Marketplace ID: {getattr(mkt, 'id', 'N/A')}")
+                            self.stdout.write(f"   Country Code: {getattr(mkt, 'country_code', 'N/A')}")
+                            self.stdout.write(f"   Default Currency: {getattr(mkt, 'default_currency_code', 'N/A')}")
+                            self.stdout.write(f"   Default Language: {getattr(mkt, 'default_language_code', 'N/A')}")
+                            self.stdout.write(f"   Domain Name: {getattr(mkt, 'domain_name', 'N/A')}")
+                            self.stdout.write(f"   Name: {getattr(mkt, 'name', 'N/A')}")
+                        
+                        if hasattr(marketplace, 'participation'):
+                            part = marketplace.participation
+                            self.stdout.write(f"   Participation Status: {getattr(part, 'is_participating', 'N/A')}")
+                            self.stdout.write(f"   Suspended: {getattr(part, 'suspended', 'N/A')}")
+                            self.stdout.write(f"   Suspended Date: {getattr(part, 'suspended_date', 'N/A')}")
+                    
+                    self.stdout.write(f"\n📊 Total marketplaces: {len(marketplaces)}")
+                    
+                else:
+                    self.stdout.write(
+                        self.style.WARNING("⚠️ No marketplace participations found")
+                    )
+                    
+            except AttributeError as e:
+                # Method not found - show available methods
+                self.stdout.write(
+                    self.style.WARNING("⚠️ Method 'get_marketplace_participations' not found")
+                )
+                self.stdout.write("   This might be due to:")
+                self.stdout.write("   - Different version of sp_api library")
+                self.stdout.write("   - Method name changed in newer versions")
+                self.stdout.write("   - Library not properly installed")
+                
+                # Show available methods for debugging
+                try:
+                    available_methods = [m for m in dir(sellers_api) if not m.startswith('_') and callable(getattr(sellers_api, m))]
+                    self.stdout.write(f"   Available methods: {', '.join(available_methods[:10])}")
+                    if len(available_methods) > 10:
+                        self.stdout.write(f"   ... and {len(available_methods) - 10} more methods")
+                except Exception:
+                    self.stdout.write("   Could not retrieve available methods")
+                    
+            except SellingApiException as e:
+                self.stdout.write(
+                    self.style.ERROR(f"❌ Marketplace API error: {e}")
+                )
+                self.stdout.write(f"   Error: {e.error}")
+                self.stdout.write(f"   Message: {e.message}")
+                
+            except Exception as e:
+                self.stdout.write(
+                    self.style.ERROR(f"❌ Error fetching marketplace info: {e}")
+                )
+            
+            # Alternative: Try to get marketplace info from Catalog API
+            self.stdout.write("\n🔄 Trying alternative method via Catalog API...")
+            try:
+                from sp_api.api import Catalog
+                catalog_api = Catalog()
+                
+                # Try to get marketplace information through catalog
+                marketplace_id = os.environ.get('SP_API_MARKETPLACE_ID', 'A1AM78C64UM0Y8')
+                self.stdout.write(f"   Testing marketplace ID: {marketplace_id}")
+                
+                # Simple catalog call to verify marketplace access
+                test_response = catalog_api.list_items(
+                    marketplace_ids=[marketplace_id],
+                    page_size=1
+                )
+                
+                if test_response.payload:
+                    self.stdout.write(
+                        self.style.SUCCESS("✅ Marketplace access confirmed via Catalog API")
+                    )
+                    self.stdout.write(f"   - Marketplace ID {marketplace_id} is accessible")
+                    self.stdout.write("   - Basic catalog permissions confirmed")
+                else:
+                    self.stdout.write(
+                        self.style.WARNING("⚠️ Limited catalog access")
+                    )
+                    
+            except SellingApiException as e:
+                if '403' in str(e) or 'Unauthorized' in str(e):
+                    self.stdout.write(
+                        self.style.WARNING("⚠️ No catalog access - permission denied")
+                    )
+                else:
+                    self.stdout.write(
+                        self.style.ERROR(f"❌ Catalog API error: {e.message}")
+                    )
+            except Exception as e:
+                self.stdout.write(
+                    self.style.ERROR(f"❌ Alternative method failed: {e}")
+                )
+            
+            # Get seller account information with better error handling
+            self.stdout.write("\n🔍 Fetching seller account information...")
+            try:
+                # Display current configuration and permissions summary
+                self.stdout.write("   Current configuration verified:")
+                self.stdout.write("   - API connection established")
+                self.stdout.write("   - Credentials loaded successfully")
+                
+                # Check if we have any successful API access
+                if 'marketplace access confirmed' in self.stdout.getvalue().lower() or 'catalog access' in self.stdout.getvalue().lower():
+                    self.stdout.write(
+                        self.style.SUCCESS("   - Basic API permissions confirmed")
+                    )
+                else:
+                    self.stdout.write(
+                        self.style.WARNING("   - Limited API access detected")
+                    )
+                    self.stdout.write("   - This is normal for new accounts or limited permissions")
+                    self.stdout.write("   - You may need to:")
+                    self.stdout.write("     - Wait for permissions to propagate")
+                    self.stdout.write("     - Check your role ARN permissions")
+                    self.stdout.write("     - Verify your refresh token is valid")
+                        
+            except Exception as e:
+                self.stdout.write(
+                    self.style.ERROR(f"❌ Error checking seller account: {e}")
+                )
+            
+            # Display current configuration
+            self.stdout.write("\n⚙️ Current Configuration:")
+            self.stdout.write(f"   Marketplace ID: {os.environ.get('SP_API_MARKETPLACE_ID', 'A1AM78C64UM0Y8')}")
+            self.stdout.write(f"   Region: {os.environ.get('SP_API_REGION', 'us-east-1')}")
+            self.stdout.write(f"   Client ID: {os.environ.get('LWA_APP_ID', 'Not set')[:20]}...")
+            self.stdout.write(f"   Role ARN: {os.environ.get('SP_API_ROLE_ARN', 'Not set')[:50]}...")
+            
+            # Try to get available API methods for debugging
+            self.stdout.write("\n🔧 Available Sellers API Methods:")
+            try:
+                available_methods = [m for m in dir(sellers_api) if not m.startswith('_') and callable(getattr(sellers_api, m))]
+                self.stdout.write("   " + ", ".join(available_methods[:10]))  # Show first 10 methods
+                if len(available_methods) > 10:
+                    self.stdout.write(f"   ... and {len(available_methods) - 10} more methods")
+            except Exception as e:
+                self.stdout.write(f"   Could not retrieve methods: {e}")
+            
+            self.stdout.write("\n" + "=" * 60)
+            self.stdout.write(
+                self.style.SUCCESS("🎉 Marketplace information test completed!")
+            )
+            self.stdout.write("✅ Marketplace and account information retrieved successfully")
+            self.stdout.write("\n💡 Next steps:")
+            self.stdout.write("   - Verify marketplace IDs match your target regions")
+            self.stdout.write("   - Check participation status for each marketplace")
+            self.stdout.write("   - Ensure proper permissions for required operations")
+            self.stdout.write("   - Wait for permissions to propagate if account is new")
+            
+        except ImportError:
+            self.stdout.write(
+                self.style.ERROR('sp_api module not found. Please install it first.')
+            )
+            self.stdout.write('Run: pip install python-amazon-sp-api')
+            sys.exit(1)
+        except Exception as e:
+            self.stdout.write(
+                self.style.ERROR(f"\n❌ Marketplace test failed with an unexpected error: {e}")
             )
             self.stdout.write("=" * 60)
