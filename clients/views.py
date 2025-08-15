@@ -1,12 +1,18 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
 from django_filters.rest_framework import DjangoFilterBackend
 from django.core.management import call_command
 from django.utils import timezone
+from django.db import transaction
 import json
 from .models import Client, ClientMarketplaceCredentials
-from .serializers import ClientSerializer, ClientMarketplaceCredentialsSerializer
+from .serializers import (
+    ClientSerializer, ClientMarketplaceCredentialsSerializer,
+    MarketplaceCredentialsCreateSerializer, MarketplaceCredentialsUpdateSerializer
+)
+from core.mixins import ClientContextMixin
 
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
@@ -27,11 +33,128 @@ class ClientViewSet(viewsets.ModelViewSet):
             'message': f'Conexión exitosa con {marketplace_type}'
         })
 
-class ClientMarketplaceCredentialsViewSet(viewsets.ModelViewSet):
+class ClientMarketplaceCredentialsViewSet(ClientContextMixin, viewsets.ModelViewSet):
+    """
+    ViewSet para manejar credenciales de marketplace de clientes
+    El client_id se extrae automáticamente del JWT del usuario autenticado
+    """
     queryset = ClientMarketplaceCredentials.objects.all()
     serializer_class = ClientMarketplaceCredentialsSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['client', 'marketplace_type', 'connection_status']
+    filterset_fields = ['marketplace_type', 'connection_status']
+    parser_classes = [JSONParser]
+    
+    def get_queryset(self):
+        """Filtrar queryset para mostrar solo las credenciales del cliente del usuario"""
+        queryset = super().get_queryset()
+        
+        # Si el usuario es superuser o admin global, puede ver todas
+        if self.request.user.is_superuser or self.request.user.role == 'admin':
+            return queryset
+        
+        # Filtrar por el cliente del usuario autenticado
+        client_id = self.get_client_from_request(self.request)
+        return queryset.filter(client_id=client_id)
+    
+    def get_serializer_class(self):
+        """Retornar el serializer apropiado según la acción"""
+        if self.action == 'create':
+            return MarketplaceCredentialsCreateSerializer
+        elif self.action in ['update', 'partial_update']:
+            return MarketplaceCredentialsUpdateSerializer
+        return ClientMarketplaceCredentialsSerializer
+    
+    def create(self, request, *args, **kwargs):
+        """Crear credenciales de marketplace - client_id se extrae del JWT"""
+        try:
+            with transaction.atomic():
+                # Validar que el marketplace_type esté presente
+                marketplace_type = request.data.get('marketplace_type')
+                if not marketplace_type:
+                    return Response({
+                        'error': 'marketplace_type_required',
+                        'message': 'Debe especificar el tipo de marketplace',
+                        'valid_types': ['amazon', 'mercadolibre', 'shopify', 'ebay', 'walmart']
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Validar que el tipo de marketplace sea válido
+                valid_types = ['amazon', 'mercadolibre', 'shopify', 'ebay', 'walmart']
+                if marketplace_type not in valid_types:
+                    return Response({
+                        'error': 'invalid_marketplace_type',
+                        'message': f'Tipo de marketplace inválido. Tipos válidos: {", ".join(valid_types)}',
+                        'received_type': marketplace_type
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Usar el serializer apropiado (que extraerá client_id del JWT)
+                serializer = self.get_serializer(data=request.data)
+                serializer.is_valid(raise_exception=True)
+                
+                # Crear la instancia
+                instance = serializer.save()
+                
+                # Retornar respuesta exitosa
+                return Response({
+                    'status': 'success',
+                    'message': f'Credenciales de {marketplace_type} creadas exitosamente',
+                    'data': ClientMarketplaceCredentialsSerializer(instance).data
+                }, status=status.HTTP_201_CREATED)
+                
+        except Exception as e:
+            return Response({
+                'error': 'creation_failed',
+                'message': f'Error al crear credenciales: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    def update(self, request, *args, **kwargs):
+        """Actualizar credenciales de marketplace"""
+        try:
+            with transaction.atomic():
+                instance = self.get_object()
+                
+                # Validar que el usuario tenga permisos para este cliente
+                self.validate_client_permission(request, instance.client.id)
+                
+                # Usar el serializer apropiado
+                serializer = self.get_serializer(instance, data=request.data, partial=True)
+                serializer.is_valid(raise_exception=True)
+                
+                # Actualizar la instancia
+                updated_instance = serializer.save()
+                
+                return Response({
+                    'status': 'success',
+                    'message': f'Credenciales de {instance.marketplace_type} actualizadas exitosamente',
+                    'data': ClientMarketplaceCredentialsSerializer(updated_instance).data
+                })
+                
+        except Exception as e:
+            return Response({
+                'error': 'update_failed',
+                'message': f'Error al actualizar credenciales: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    def destroy(self, request, *args, **kwargs):
+        """Eliminar credenciales de marketplace"""
+        try:
+            instance = self.get_object()
+            
+            # Validar que el usuario tenga permisos para este cliente
+            self.validate_client_permission(request, instance.client.id)
+            
+            # Eliminar la instancia
+            instance.delete()
+            
+            return Response({
+                'status': 'success',
+                'message': f'Credenciales de {instance.marketplace_type} eliminadas exitosamente'
+            })
+            
+        except Exception as e:
+            return Response({
+                'error': 'deletion_failed',
+                'message': f'Error al eliminar credenciales: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     @action(detail=True, methods=['post'])
     def sync_products_and_listings(self, request, pk=None):
