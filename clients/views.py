@@ -65,7 +65,10 @@ class ClientMarketplaceCredentialsViewSet(ClientContextMixin, viewsets.ModelView
         return ClientMarketplaceCredentialsSerializer
     
     def create(self, request, *args, **kwargs):
-        """Crear credenciales de marketplace - client_id se extrae del JWT"""
+        """
+        Crear o actualizar credenciales de marketplace (upsert)
+        Si ya existen credenciales para el mismo marketplace_type, las actualiza
+        """
         try:
             with transaction.atomic():
                 # Validar que el marketplace_type esté presente
@@ -86,24 +89,49 @@ class ClientMarketplaceCredentialsViewSet(ClientContextMixin, viewsets.ModelView
                         'received_type': marketplace_type
                     }, status=status.HTTP_400_BAD_REQUEST)
                 
-                # Usar el serializer apropiado (que extraerá client_id del JWT)
-                serializer = self.get_serializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
+                # Obtener el client_id del JWT
+                client_id = self.get_client_from_request(request)
                 
-                # Crear la instancia
-                instance = serializer.save()
+                # Buscar credenciales existentes para este cliente y marketplace
+                existing_credential = ClientMarketplaceCredentials.objects.filter(
+                    client_id=client_id,
+                    marketplace_type=marketplace_type
+                ).first()
                 
-                # Retornar respuesta exitosa
-                return Response({
-                    'status': 'success',
-                    'message': f'Credenciales de {marketplace_type} creadas exitosamente',
-                    'data': ClientMarketplaceCredentialsSerializer(instance).data
-                }, status=status.HTTP_201_CREATED)
+                if existing_credential:
+                    # Actualizar credenciales existentes
+                    serializer = MarketplaceCredentialsUpdateSerializer(
+                        existing_credential, 
+                        data=request.data, 
+                        partial=True,
+                        context={'request': request}
+                    )
+                    serializer.is_valid(raise_exception=True)
+                    instance = serializer.save()
+                    
+                    return Response({
+                        'status': 'success',
+                        'message': f'Credenciales de {marketplace_type} actualizadas exitosamente',
+                        'action': 'updated',
+                        'data': ClientMarketplaceCredentialsSerializer(instance).data
+                    }, status=status.HTTP_200_OK)
+                else:
+                    # Crear nuevas credenciales
+                    serializer = self.get_serializer(data=request.data)
+                    serializer.is_valid(raise_exception=True)
+                    instance = serializer.save()
+                    
+                    return Response({
+                        'status': 'success',
+                        'message': f'Credenciales de {marketplace_type} creadas exitosamente',
+                        'action': 'created',
+                        'data': ClientMarketplaceCredentialsSerializer(instance).data
+                    }, status=status.HTTP_201_CREATED)
                 
         except Exception as e:
             return Response({
-                'error': 'creation_failed',
-                'message': f'Error al crear credenciales: {str(e)}'
+                'error': 'upsert_failed',
+                'message': f'Error al crear/actualizar credenciales: {str(e)}'
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     def update(self, request, *args, **kwargs):

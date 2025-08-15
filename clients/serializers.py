@@ -85,6 +85,10 @@ class ClientMarketplaceCredentialsSerializer(PydanticModelSerializer, ClientCont
         for field in required_fields:
             if field not in credentials or not credentials[field]:
                 raise serializers.ValidationError(f"Campo requerido: {field}")
+        
+        # Agregar automáticamente la versión de la API si no está presente
+        if 'api_version' not in credentials:
+            credentials['api_version'] = '2024-01'
     
     def validate(self, data):
         """Validación del modelo completo"""
@@ -168,6 +172,10 @@ class MarketplaceCredentialsCreateSerializer(serializers.ModelSerializer, Client
         for field in required_fields:
             if field not in credentials or not credentials[field]:
                 raise serializers.ValidationError(f"Campo requerido: {field}")
+        
+        # Agregar automáticamente la versión de la API si no está presente
+        if 'api_version' not in credentials:
+            credentials['api_version'] = '2024-01'
     
     def validate(self, data):
         """Validación del modelo completo"""
@@ -177,18 +185,8 @@ class MarketplaceCredentialsCreateSerializer(serializers.ModelSerializer, Client
             client_id = self.get_client_from_request(request)
             data['client_id'] = client_id
         
-        # Verificar que no haya duplicados
-        marketplace_type = data.get('marketplace_type')
-        if marketplace_type and 'client_id' in data:
-            existing_credential = ClientMarketplaceCredentials.objects.filter(
-                client_id=data['client_id'],
-                marketplace_type=marketplace_type
-            ).first()
-            
-            if existing_credential:
-                raise serializers.ValidationError(
-                    f"Ya existen credenciales para este cliente en {marketplace_type}"
-                )
+        # Removemos la validación de duplicados ya que ahora permitimos upsert
+        # La lógica de upsert se maneja en el viewset
         
         return data
 

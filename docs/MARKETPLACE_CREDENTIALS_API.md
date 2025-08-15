@@ -13,9 +13,11 @@ Esta API permite gestionar las credenciales de marketplace de los clientes. **El
 
 ## Operaciones CRUD
 
-### 1. Crear Credenciales (POST)
+### 1. Crear o Actualizar Credenciales (POST - Upsert)
 
 **Endpoint:** `POST /api/v1/marketplace-credentials/`
+
+**Comportamiento:** Este endpoint implementa un comportamiento de "upsert" (create or update). Si ya existen credenciales para el mismo `marketplace_type` del cliente, las actualiza. Si no existen, las crea.
 
 **Headers:**
 ```
@@ -34,6 +36,44 @@ Authorization: Bearer <token>
         "api_version": "2024-01"
     },
     "webhook_url": "https://api.midominio.com/webhooks/shopify"
+}
+```
+
+**Respuestas:**
+
+**Si se crean nuevas credenciales (201 Created):**
+```json
+{
+    "status": "success",
+    "message": "Credenciales de shopify creadas exitosamente",
+    "action": "created",
+    "data": {
+        "id": 1,
+        "marketplace_type": "shopify",
+        "marketplace_name": "Mi Tienda Online",
+        "credentials": {...},
+        "connection_status": "pending",
+        "created_at": "2024-01-15T10:30:00Z",
+        "updated_at": "2024-01-15T10:30:00Z"
+    }
+}
+```
+
+**Si se actualizan credenciales existentes (200 OK):**
+```json
+{
+    "status": "success",
+    "message": "Credenciales de shopify actualizadas exitosamente",
+    "action": "updated",
+    "data": {
+        "id": 1,
+        "marketplace_type": "shopify",
+        "marketplace_name": "Mi Tienda Online Actualizada",
+        "credentials": {...},
+        "connection_status": "connected",
+        "created_at": "2024-01-15T10:30:00Z",
+        "updated_at": "2024-01-15T11:45:00Z"
+    }
 }
 ```
 
@@ -83,6 +123,8 @@ Authorization: Bearer <token>
     }
 }
 ```
+
+**Nota:** El campo `api_version` se agrega automáticamente con el valor `"2024-01"` si no se proporciona en las credenciales.
 
 ### 2. Obtener Credenciales (GET)
 
@@ -162,7 +204,7 @@ Sincroniza productos y listings desde el marketplace.
 ### Shopify
 - `shop_url`: Requerido, URL válida de Shopify
 - `access_token`: Requerido, token de acceso válido
-- `api_version`: Opcional, versión de API (default: 2024-01)
+- `api_version`: Opcional, versión de API (se agrega automáticamente como "2024-01" si no se proporciona)
 
 ## Respuestas de Error
 
@@ -174,11 +216,11 @@ Sincroniza productos y listings desde el marketplace.
 }
 ```
 
-### Error de Duplicado
+### Error de Upsert
 ```json
 {
-    "error": "duplicate_credentials",
-    "message": "Ya existen credenciales para el cliente Mi Cliente en shopify"
+    "error": "upsert_failed",
+    "message": "Error al crear/actualizar credenciales: [detalle del error]"
 }
 ```
 
@@ -193,8 +235,8 @@ Sincroniza productos y listings desde el marketplace.
 
 ## Códigos de Estado HTTP
 
-- `200 OK` - Operación exitosa
-- `201 Created` - Credenciales creadas exitosamente
+- `200 OK` - Credenciales actualizadas exitosamente (upsert)
+- `201 Created` - Credenciales creadas exitosamente (upsert)
 - `400 Bad Request` - Error de validación o datos inválidos
 - `404 Not Found` - Credenciales no encontradas
 - `500 Internal Server Error` - Error interno del servidor
@@ -203,9 +245,10 @@ Sincroniza productos y listings desde el marketplace.
 
 1. **Tipo de Marketplace**: Es obligatorio especificar el `marketplace_type` al crear credenciales
 2. **Validación**: Las credenciales se validan automáticamente según el tipo de marketplace
-3. **Duplicados**: No se permiten credenciales duplicadas para el mismo cliente y marketplace
+3. **Upsert**: El endpoint POST implementa comportamiento de "create or update". Si ya existen credenciales para el mismo `marketplace_type`, las actualiza automáticamente
 4. **Seguridad**: Las credenciales se almacenan encriptadas en la base de datos
 5. **Actualizaciones**: Al actualizar credenciales, se mantiene el tipo de marketplace original
+6. **Idempotencia**: Múltiples llamadas con los mismos datos no crean duplicados
 
 ## Resumen
 
@@ -218,6 +261,7 @@ He creado un sistema completo de API CRUD para credenciales de marketplace que i
 
 ### 🚀 **Funcionalidades del ViewSet**
 - **CRUD completo** con validaciones específicas
+- **Comportamiento de upsert** (create or update) en el endpoint POST
 - **Validación de credenciales** según el tipo de marketplace
 - **Prevención de duplicados** por cliente y marketplace
 - **Acciones especiales** como validar, probar conexión y sincronizar
@@ -235,9 +279,12 @@ He creado un sistema completo de API CRUD para credenciales de marketplace que i
 
 ### 💡 **Características Clave**
 1. **Validación automática** según el tipo de marketplace especificado
-2. **Prevención de errores** con validaciones robustas
-3. **Mensajes de error claros** para debugging
-4. **Documentación completa** con ejemplos de uso
-5. **Manejo de transacciones** para operaciones atómicas
+2. **Comportamiento de upsert** que simplifica la API y evita duplicados
+3. **Campos automáticos** como `api_version` para Shopify que se agregan automáticamente
+4. **Prevención de errores** con validaciones robustas
+5. **Mensajes de error claros** para debugging
+6. **Documentación completa** con ejemplos de uso
+7. **Manejo de transacciones** para operaciones atómicas
+8. **Idempotencia** para operaciones seguras
 
 El sistema está listo para usar y maneja automáticamente las diferencias entre marketplaces, validando que las credenciales tengan el formato correcto según el tipo especificado.
