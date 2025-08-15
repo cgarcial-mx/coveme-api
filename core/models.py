@@ -167,56 +167,64 @@ class User(AbstractUser, TimestampedModel):
         return f"{self.username} ({self.get_role_display()}) - {self.client.name if self.client else 'Sin cliente'}"
     
     def get_jwt_permissions(self):
-        """Obtener permisos del usuario en formato para JWT"""
-        permissions = {
-            'user_id': self.id,
-            'username': self.username,
-            'role': self.role,
-            'client_id': self.client.id if self.client else None,
-            'subscription_plan': self.client.subscription_plan if self.client else None,
-            'endpoints': {},
-            'scopes': {
-                'client': None,
-                'brands': [],
-                'subbrands': []
-            }
-        }
-        
-        # Obtener permisos activos del usuario
-        user_perms = UserPermission.objects.filter(
-            user=self,
-            is_active=True
-        ).select_related('permission', 'scope', 'client').prefetch_related('brands', 'subbrands')
-        
-        # Organizar permisos por endpoint
-        for user_perm in user_perms:
-            endpoint = user_perm.permission.endpoint_category
-            action = user_perm.permission.name
+        """Get user permissions for JWT token - returns simple dict"""
+        try:
+            # Get user permissions from UserPermission model
+            user_perms = UserPermission.objects.filter(
+                user=self, 
+                is_active=True
+            ).select_related('permission', 'scope', 'client').prefetch_related('brands', 'subbrands')
             
-            if endpoint not in permissions['endpoints']:
-                permissions['endpoints'][endpoint] = {}
-            
-            permissions['endpoints'][endpoint][action] = {
-                'scope': user_perm.scope.name,
-                'client_id': user_perm.client.id if user_perm.client else None,
-                'brands': list(user_perm.brands.values_list('id', flat=True)),
-                'subbrands': list(user_perm.subbrands.values_list('id', flat=True))
+            # Build permissions structure
+            permissions = {
+                'user_id': self.id,
+                'role': self.role,
+                'client_id': self.client.id if self.client else None,
+                'endpoints': {}
             }
-        
-        # Agregar permisos del plan de suscripción
-        if self.client and hasattr(self.client, 'subscription_plan'):
-            plan_permissions = self.client.subscription_plan.get_endpoint_permissions()
-            for endpoint, actions in plan_permissions.items():
-                if endpoint not in permissions['endpoints']:
-                    permissions['endpoints'][endpoint] = {}
+            
+            # Process each permission
+            for user_perm in user_perms:
+                endpoint_category = user_perm.permission.endpoint_category
+                permission_name = user_perm.permission.name
                 
-                for action, allowed in actions.items():
-                    if allowed and action not in permissions['endpoints'][endpoint]:
-                        permissions['endpoints'][endpoint][action] = {
-                            'scope': 'subscription',
-                            'client_id': self.client.id,
-                            'brands': [],
-                            'subbrands': []
-                        }
-        
-        return permissions
+                if endpoint_category not in permissions['endpoints']:
+                    permissions['endpoints'][endpoint_category] = {}
+                
+                # Build permission data as simple dict
+                perm_data = {
+                    'scope': user_perm.scope.name,
+                    'client_id': user_perm.client.id if user_perm.client else None,
+                }
+                
+                # Add brands if any
+                if user_perm.brands.exists():
+                    perm_data['brand_ids'] = list(user_perm.brands.values_list('id', flat=True))
+                
+                # Add subbrands if any
+                if user_perm.subbrands.exists():
+                    perm_data['subbrand_ids'] = list(user_perm.subbrands.values_list('id', flat=True))
+                
+                permissions['endpoints'][endpoint_category][permission_name] = perm_data
+            
+            # Add subscription plan info (as simple data)
+            if self.client and self.client.subscription_plan:
+                plan = self.client.subscription_plan
+                permissions['subscription'] = {
+                    'plan_name': plan.name,
+                    'plan_type': plan.plan_type,
+                    'api_quota': plan.api_quota,
+                    'endpoint_config': plan.endpoint_config
+                }
+            
+            return permissions
+            
+        except Exception as e:
+            # Fallback to basic permissions
+            return {
+                'user_id': self.id,
+                'role': self.role,
+                'client_id': self.client.id if self.client else None,
+                'endpoints': {},
+                'error': 'Failed to load permissions'
+            }

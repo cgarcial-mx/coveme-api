@@ -27,6 +27,10 @@ from orders.views import OrderViewSet, OrderItemViewSet
 from feedback.views import CustomerFeedbackViewSet
 from analytics.views import ApiLogViewSet
 
+# Importar las vistas de autenticación (NO CoreViewSet)
+from core.views import login_view, logout_view, user_profile
+from rest_framework_simplejwt.views import TokenRefreshView
+
 # Create router and register viewsets
 router = DefaultRouter()
 router.register(r'clients', ClientViewSet)
@@ -48,5 +52,12 @@ router.register(r'api-logs', ApiLogViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
+    
+    # 🔐 Endpoints de Autenticación JWT
+    path('api/v1/auth/login/', login_view, name='auth_login'),
+    path('api/v1/auth/logout/', logout_view, name='auth_logout'),
+    path('api/v1/auth/refresh/', TokenRefreshView.as_view(), name='auth_refresh'),
+    path('api/v1/auth/profile/', user_profile, name='auth_profile'),
+    
     path('api-auth/', include('rest_framework.urls')),
 ]
