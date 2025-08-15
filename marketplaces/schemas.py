@@ -16,7 +16,7 @@ class SaleChannelSchema(TimestampedSchema):
 class MarketplaceListingSchema(TimestampedSchema):
     """Marketplace listing schema"""
     id: Optional[int] = None
-    client_id: int
+    client_id: Optional[int] = None  # Auto-populated by mixin
     product_id: Optional[int] = None
     marketplace_type: str
     marketplace_id: str
@@ -39,7 +39,7 @@ class MarketplaceListingSchema(TimestampedSchema):
 class ProductMatchSchema(TimestampedSchema):
     """Product match schema"""
     id: Optional[int] = None
-    client_id: int
+    client_id: Optional[int] = None  # Auto-populated by mixin
     product_id: int
     marketplace_listing_id: int
     confidence_score: Decimal
@@ -53,7 +53,7 @@ class ProductMatchSchema(TimestampedSchema):
 class ProductPriceHistorySchema(TimestampedSchema):
     """Product price history schema"""
     id: Optional[int] = None
-    client_id: int
+    client_id: Optional[int] = None  # Auto-populated by mixin
     product_id: int
     marketplace_listing_id: int
     previous_price: Optional[Decimal] = None
@@ -68,7 +68,7 @@ class ProductPriceHistorySchema(TimestampedSchema):
 class ProductTracingSchema(TimestampedSchema):
     """Product tracing schema"""
     id: Optional[int] = None
-    client_id: int
+    client_id: Optional[int] = None  # Auto-populated by mixin
     product_id: int
     marketplace_type: str
     marketplace_id: str
@@ -83,7 +83,7 @@ class ProductTracingSchema(TimestampedSchema):
 class ProductTracingHistorySchema(TimestampedSchema):
     """Product tracing history schema"""
     id: Optional[int] = None
-    client_id: int
+    client_id: Optional[int] = None  # Auto-populated by mixin
     product_tracing_id: int
     sales_count: Optional[int] = None
     inventory_quantity: Optional[Decimal] = None
@@ -93,7 +93,7 @@ class ProductTracingHistorySchema(TimestampedSchema):
 
 class MarketplaceListingCreateSchema(BaseModel):
     """Schema for creating a marketplace listing"""
-    client_id: int
+    # client_id removed - auto-populated by ClientContextMixin
     product_id: Optional[int] = None
     marketplace_type: str
     marketplace_id: str
@@ -134,7 +134,7 @@ class MarketplaceListingUpdateSchema(BaseModel):
 
 class ProductMatchCreateSchema(BaseModel):
     """Schema for creating a product match"""
-    client_id: int
+    # client_id removed - auto-populated by ClientContextMixin
     product_id: int
     marketplace_listing_id: int
     confidence_score: Decimal
@@ -155,7 +155,7 @@ class ProductMatchUpdateSchema(BaseModel):
 
 class ProductTracingCreateSchema(BaseModel):
     """Schema for creating a product tracing"""
-    client_id: int
+    # client_id removed - auto-populated by ClientContextMixin
     product_id: int
     marketplace_type: str
     marketplace_id: str

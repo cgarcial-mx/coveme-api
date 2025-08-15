@@ -20,6 +20,26 @@ class SaleChannel(TimestampedModel):
     def __str__(self):
         return self.name
 
+class MarketplaceListingImage(TimestampedModel):
+    """Imágenes de los listings de marketplace"""
+    listing = models.ForeignKey('marketplaces.MarketplaceListing', on_delete=models.CASCADE, related_name='images')
+    external_id = models.CharField(max_length=100, null=True, blank=True)
+    position = models.IntegerField(default=1)
+    url = models.URLField(max_length=500)
+    alt_text = models.CharField(max_length=200, null=True, blank=True)
+    width = models.IntegerField(null=True, blank=True)
+    height = models.IntegerField(null=True, blank=True)
+    variant_ids = models.JSONField(default=list, blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+    
+    class Meta:
+        db_table = 'marketplace_listing_images'
+        ordering = ['position']
+        unique_together = ['listing', 'position']
+    
+    def __str__(self):
+        return f"{self.listing} - Image {self.position}"
+
 class MarketplaceListing(TimestampedModel):
     """Listado específico en un marketplace"""
     client = models.ForeignKey('clients.Client', on_delete=models.CASCADE, related_name='marketplace_listings')
@@ -47,12 +67,30 @@ class MarketplaceListing(TimestampedModel):
     permalink = models.URLField(max_length=500, null=True, blank=True)
     metadata = models.JSONField(default=dict, blank=True)
     
+    # Campo principal para la imagen destacada
+    main_image_url = models.URLField(max_length=500, null=True, blank=True)
+    
+    # Todas las imágenes con metadatos completos
+    images = models.JSONField(default=list, blank=True)
+    
     class Meta:
         db_table = 'marketplace_listings'
         unique_together = ['client', 'marketplace_type', 'marketplace_id']
     
     def __str__(self):
         return f"{self.marketplace_type} - {self.marketplace_id}"
+
+    @property
+    def main_image_url(self):
+        """Obtener la URL de la imagen principal"""
+        if self.images and len(self.images) > 0:
+            return self.images[0].get('src') or self.images[0].get('link')
+        return self.thumbnail_url
+    
+    @property
+    def image_count(self):
+        """Número total de imágenes"""
+        return len(self.images) if self.images else 0
 
 class ProductMatch(TimestampedModel):
     """Coincidencias entre productos y listados de marketplace"""
