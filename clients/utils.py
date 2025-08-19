@@ -460,25 +460,28 @@ def sync_shopify_products_listings(credentials_instance):
             'Content-Type': 'application/json'
         }
         
-        # Sync products using clean SKU approach
-        products_synced = sync_shopify_products_direct(credentials_instance.client, shop_url, headers)
+        # Get API version from credentials (default to 2024-01 if not specified)
+        api_version = credentials_instance.credentials.get('api_version', '2024-01')
         
-        # Sync listings using original product IDs
-        listings_synced = sync_shopify_listings_direct(credentials_instance.client, shop_url, headers)
+        # Sync products using clean SKU approach (no limit - sync all)
+        products_synced = sync_shopify_products_direct(credentials_instance.client, shop_url, headers, api_version)
+        
+        # Sync listings using original product IDs (no limit - sync all)
+        listings_synced = sync_shopify_listings_direct(credentials_instance.client, shop_url, headers, api_version)
         
         return True, f"Shopify sync completed - {products_synced} products, {listings_synced} listings synced"
             
     except Exception as e:
         return False, f"Shopify sync error: {str(e)}"
 
-def sync_shopify_products_direct(client, shop_url, headers):
+def sync_shopify_products_direct(client, shop_url, headers, api_version='2024-01'):
     """Sync Shopify products directly"""
     try:
         import requests
         
-        # Get products from Shopify
-        api_url = f"https://{shop_url}/admin/api/2023-10/products.json"
-        params = {'limit': 50}  # Limit to 50 products for now
+        # Get products from Shopify (no limit - sync all)
+        api_url = f"https://{shop_url}/admin/api/{api_version}/products.json"
+        params = {}
         
         response = requests.get(api_url, headers=headers, params=params, timeout=30)
         
@@ -506,14 +509,14 @@ def sync_shopify_products_direct(client, shop_url, headers):
         logger.error(f"Shopify products sync error: {e}")
         return 0
 
-def sync_shopify_listings_direct(client, shop_url, headers):
+def sync_shopify_listings_direct(client, shop_url, headers, api_version='2024-01'):
     """Sync Shopify listings directly"""
     try:
         import requests
         
-        # Get products (listings) from Shopify
-        api_url = f"https://{shop_url}/admin/api/2023-10/products.json"
-        params = {'limit': 50, 'status': 'active'}
+        # Get products (listings) from Shopify (no limit - sync all)
+        api_url = f"https://{shop_url}/admin/api/{api_version}/products.json"
+        params = {'status': 'active'}
         
         response = requests.get(api_url, headers=headers, params=params, timeout=30)
         
@@ -613,6 +616,10 @@ def create_or_update_shopify_listing(client, shopify_product):
         product_id = shopify_product.get('id')
         marketplace_id = str(product_id)  # Use original ID from Shopify
         
+        # Get images and set thumbnail
+        images = shopify_product.get('images', [])
+        thumbnail_url = images[0].get('src') if images else None
+        
         # Prepare listing data
         listing_data = {
             'client': client,
@@ -623,6 +630,7 @@ def create_or_update_shopify_listing(client, shopify_product):
             'price': 0.0,
             'currency': 'USD',
             'inventory_quantity': 0,
+            'thumbnail_url': thumbnail_url,  # Set thumbnail URL from first image
             'metadata': {
                 'shopify_product_id': product_id,
                 'handle': shopify_product.get('handle'),
@@ -631,6 +639,7 @@ def create_or_update_shopify_listing(client, shopify_product):
                 'tags': shopify_product.get('tags', []),
                 'variants_count': len(shopify_product.get('variants', [])),
                 'description': shopify_product.get('body_html', ''),
+                'images_count': len(images),  # Add image count to metadata
             }
         }
         
@@ -657,11 +666,55 @@ def create_or_update_shopify_listing(client, shopify_product):
             defaults=listing_data
         )
         
+        # Sync images if available
+        if images:
+            logger.info(f"Syncing {len(images)} images for listing {listing.id}")
+            sync_listing_images(listing, images)
+        else:
+            logger.info(f"No images found for listing {listing.id}")
+        
         return listing
         
     except Exception as e:
         logger.error(f"Error creating/updating Shopify listing: {e}")
         return None
+
+def sync_listing_images(listing, shopify_images):
+    """Sync images for a marketplace listing"""
+    try:
+        from marketplaces.models import MarketplaceListingImage
+        
+        if not shopify_images:
+            return
+        
+        # Delete existing images for this listing
+        listing.listing_images.all().delete()
+        
+        # Create new images
+        for i, image_data in enumerate(shopify_images):
+            image = MarketplaceListingImage(
+                listing=listing,
+                external_id=str(image_data.get('id')),
+                position=image_data.get('position', i + 1),
+                url=image_data.get('src'),
+                alt_text=image_data.get('alt'),
+                width=image_data.get('width'),
+                height=image_data.get('height'),
+                variant_ids=image_data.get('variant_ids', []),
+                metadata={
+                    'product_id': image_data.get('product_id'),
+                    'created_at': image_data.get('created_at'),
+                    'updated_at': image_data.get('updated_at'),
+                    'admin_graphql_api_id': image_data.get('admin_graphql_api_id'),
+                }
+            )
+            image.save()
+            logger.debug(f"Saved image {i+1}/{len(shopify_images)}: {image_data.get('src', 'No URL')}")
+        
+        logger.info(f"Successfully synced {len(shopify_images)} images for listing {listing.id}")
+        
+    except Exception as e:
+        logger.error(f"Error syncing listing images: {e}")
 
 def create_or_update_amazon_product(client, amazon_product):
     """Create or update a Product from Amazon data (example implementation)"""

@@ -201,50 +201,57 @@ class ClientMarketplaceCredentialsViewSet(ClientContextMixin, viewsets.ModelView
             
             # Get sync parameters from request
             dry_run = request.data.get('dry_run', False)
-            limit = request.data.get('limit', 100)
             debug = request.data.get('debug', False)
             
-            # Prepare command arguments
-            command_args = [
-                'sync_shopify_products',
-                '--credentials-id', str(credential.id),
-                '--limit', str(limit),
-            ]
+            # Use the clean SKU approach from clients.utils instead of management command
+            from clients.utils import sync_shopify_products_listings
             
             if dry_run:
-                command_args.append('--dry-run')
+                # For dry run, we'll just return what would be synced
+                return Response({
+                    'status': 'dry_run',
+                    'message': 'Dry run mode - no changes made',
+                    'sync_details': {
+                        'credential_id': credential.id,
+                        'client_name': credential.client.name,
+                        'marketplace_type': credential.marketplace_type,
+                        'dry_run': True,
+                        'debug': debug
+                    }
+                })
             
-            if debug:
-                command_args.append('--debug')
+            # Execute the sync using clean SKU approach (no marketplace prefixes)
+            success, message = sync_shopify_products_listings(credential)
             
-            # Execute the sync command
-            from io import StringIO
-            from django.core.management import call_command
-            
-            output = StringIO()
-            call_command(*command_args, stdout=output)
-            output.seek(0)
-            command_output = output.read()
-            
-            # Update credential status
-            credential.last_sync_at = timezone.now()
-            credential.last_error = None
-            credential.save()
-            
-            return Response({
-                'status': 'success',
-                'message': 'Sync completed successfully',
-                'output': command_output,
-                'sync_details': {
+            if success:
+                # Update credential status
+                credential.last_sync_at = timezone.now()
+                credential.last_error = None
+                credential.save()
+                
+                return Response({
+                    'status': 'success',
+                    'message': message,
+                    'sync_details': {
+                        'credential_id': credential.id,
+                        'client_name': credential.client.name,
+                        'marketplace_type': credential.marketplace_type,
+                        'last_sync_at': credential.last_sync_at.isoformat(),
+                        'dry_run': False,
+                        'debug': debug
+                    }
+                })
+            else:
+                # Update credential with error
+                credential.last_error = message
+                credential.save()
+                
+                return Response({
+                    'status': 'error',
+                    'message': message,
                     'credential_id': credential.id,
-                    'client_name': credential.client.name,
-                    'marketplace_type': credential.marketplace_type,
-                    'last_sync_at': credential.last_sync_at.isoformat(),
-                    'dry_run': dry_run,
-                    'limit': limit,
-                    'debug': debug
-                }
-            })
+                    'last_error': credential.last_error
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
         except Exception as e:
             # Update credential with error
