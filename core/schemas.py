@@ -44,6 +44,7 @@ class ClientMarketplaceCredentialsSchema(TimestampedSchema):
     id: Optional[int] = None
     client_id: int
     marketplace_type: str
+    name: str
     marketplace_name: Optional[str] = None
     credentials: Dict[str, Any]
     settings: Dict[str, Any] = Field(default_factory=dict)
@@ -52,3 +53,4 @@ class ClientMarketplaceCredentialsSchema(TimestampedSchema):
     last_sync_at: Optional[datetime] = None
     last_error: Optional[str] = None
     created_by_id: Optional[int] = None
+    is_active: bool = True

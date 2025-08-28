@@ -24,6 +24,11 @@ Authorization: Bearer <access_token>
 - `provider` - ID del proveedor  
 - `category` - Categoría del producto
 
+**Optimizaciones implementadas:**
+- **Select Related:** Los productos se obtienen con `select_related('brand', 'subbrand', 'provider')` para optimizar las consultas de base de datos
+- **Propiedades del modelo:** Los campos `brand_name`, `subbrand_name` y `provider_name` se calculan automáticamente usando propiedades del modelo
+- **Serialización Pydantic:** Conversión optimizada de Django a Pydantic con manejo robusto de campos relacionados
+
 **Respuesta:**
 ```json
 {
@@ -320,6 +325,106 @@ GET /product-matches/?match_type=auto&status=active
 
 ---
 
+## 🔧 Mejoras Técnicas Implementadas
+
+### Resolución del Issue: brand_name null en GET /products/
+
+**Problema identificado:**
+- Los campos `brand_name`, `subbrand_name` y `provider_name` retornaban `null` en las respuestas de la API
+- Las consultas de base de datos no optimizaban las relaciones con marcas, sub-marcas y proveedores
+
+**Soluciones implementadas:**
+
+#### 1. Optimización de Consultas (ProductViewSet)
+```python
+def get_queryset(self):
+    """Filtrar productos por el cliente del usuario autenticado"""
+    client_id = self.get_client_from_request(self.request)
+    return Product.objects.filter(client_id=client_id).select_related(
+        'brand', 'subbrand', 'provider'
+    )
+```
+
+#### 2. Propiedades del Modelo Product
+```python
+@property
+def brand_name(self):
+    """Get brand name or None"""
+    return self.brand.name if self.brand else None
+
+@property
+def subbrand_name(self):
+    """Get subbrand name or None"""
+    return self.subbrand.name if self.subbrand else None
+
+@property
+def provider_name(self):
+    """Get provider name or None"""
+    return self.provider.name if self.provider else None
+```
+
+#### 3. Mejora en la Conversión Django a Pydantic
+```python
+# Handle related fields - check for common patterns
+related_fields = ['brand', 'subbrand', 'provider', 'client', 'created_by']
+for field_name in related_fields:
+    if hasattr(django_obj, field_name):
+        related_obj = getattr(django_obj, field_name)
+        if related_obj is not None:
+            # Add the related object ID if not already present
+            if f"{field_name}_id" not in data:
+                data[f"{field_name}_id"] = related_obj.id
+            
+            # Add the related object name if it exists
+            if hasattr(related_obj, 'name'):
+                data[f"{field_name}_name"] = related_obj.name
+
+# Check for properties that might contain related names
+property_fields = ['brand_name', 'subbrand_name', 'provider_name']
+for prop_name in property_fields:
+    if hasattr(django_obj, prop_name):
+        try:
+            prop_value = getattr(django_obj, prop_name)
+            if prop_value is not None:
+                data[prop_name] = prop_value
+        except Exception:
+            # Skip if property access fails
+            pass
+```
+
+**Beneficios de las mejoras:**
+- ✅ **Rendimiento:** Reducción de consultas N+1 mediante `select_related`
+- ✅ **Confiabilidad:** Los campos `*_name` siempre están disponibles cuando existe la relación
+- ✅ **Mantenibilidad:** Propiedades del modelo centralizan la lógica de nombres relacionados
+- ✅ **Robustez:** Manejo de errores mejorado en la conversión Pydantic
+
+**Después de la corrección:**
+```json
+{
+  "id": 1,
+  "title": "Laptop Gaming Pro",
+  "brand_id": 5,
+  "brand_name": "TechCorp",  // ✅ Nombre de marca correcto
+  "subbrand_id": 12,
+  "subbrand_name": "Gaming Series",  // ✅ Nombre de sub-marca correcto
+  "provider_id": 3,
+  "provider_name": "TechSupplier"  // ✅ Nombre de proveedor correcto
+}
+```
+
+**Comandos para verificar:**
+```bash
+# Verificar que los campos *_name no sean null
+curl -X GET "https://api.coveme.com/api/v1/products/" \
+  -H "Authorization: Bearer <your_jwt_token>" \
+  | jq '.results[] | select(.brand_name != null) | {id, title, brand_name}'
+
+# Verificar optimización de consultas (en logs de Django)
+# Debería mostrar consultas con JOIN en lugar de consultas separadas
+```
+
+---
+
 ## 🚀 Ejemplos de Uso
 
 ### Crear un Producto Completo
@@ -351,6 +456,38 @@ curl -X GET "https://api.coveme.com/api/v1/products/?category=Electronics&brand=
 curl -X GET "https://api.coveme.com/api/v1/price-history/?product=1" \
   -H "Authorization: Bearer <your_jwt_token>"
 ```
+
+---
+
+## 💡 Mejores Prácticas y Recomendaciones
+
+### Para el Uso de la API
+
+1. **Filtrado Eficiente:**
+   - Use los filtros disponibles (`brand`, `provider`, `category`) para reducir el número de resultados
+   - Los filtros se aplican a nivel de base de datos para mejor rendimiento
+
+2. **Manejo de Campos Relacionados:**
+   - Siempre verifique que `brand_id`, `subbrand_id`, `provider_id` existan antes de crear productos
+   - Los campos `*_name` se calculan automáticamente, no es necesario enviarlos en POST/PUT
+
+3. **Optimización de Consultas:**
+   - La API ya incluye `select_related` para optimizar las consultas
+   - No es necesario hacer múltiples llamadas para obtener información de marcas/proveedores
+
+### Para el Desarrollo
+
+1. **Mantenimiento de Propiedades del Modelo:**
+   - Si se agregan nuevos campos relacionados, actualizar las propiedades correspondientes
+   - Las propiedades deben manejar casos donde la relación sea `None`
+
+2. **Extensión de la API:**
+   - Para nuevos campos relacionados, seguir el patrón establecido
+   - Agregar las propiedades al modelo y actualizar `django_to_pydantic`
+
+3. **Testing:**
+   - Verificar que los campos `*_name` no sean `null` en las respuestas
+   - Probar con productos que tengan y no tengan relaciones establecidas
 
 ---
 

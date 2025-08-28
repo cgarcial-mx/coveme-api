@@ -1,0 +1,1749 @@
+{
+  "products": [
+    {
+      "id": 4421338398833,
+      "title": "Creación y Edición de Video Promocional 15 - 20 Seg",
+      "body_html": "<p>El servicio de Creación y edición de videos promocionales de 5 segundos es para los clientes que buscan tener pequeños videos de sus productos o servicios para crear anuncios en Youtube, Facebook e Instagram, o para usarlos dentro de sus tiendas en línea y descripciones de productos.</p>\n<p>Estos videos se generan con contenido y media proporcionado por el cliente. Como lo son videos, fotos, fichas técnicas.</p>\n<p>Son videos de 15 a 20 segundos</p>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "",
+      "created_at": "2020-03-29T12:37:29-04:00",
+      "handle": "creacion-y-edicion-de-video-promocional-15-20-seg",
+      "updated_at": "2025-07-15T17:29:41-04:00",
+      "published_at": "2020-03-29T11:51:03-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "Tipo de Servicio_Creacion y edicion de video",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4421338398833",
+      "variants": [
+        {
+          "id": 31470156873841,
+          "product_id": 4421338398833,
+          "title": "Default Title",
+          "price": "1490.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-29T12:37:30-04:00",
+          "updated_at": "2023-10-27T11:56:47-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 33000225931377,
+          "inventory_quantity": 1000,
+          "old_inventory_quantity": 1000,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31470156873841",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5751869079665,
+          "product_id": 4421338398833,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [],
+      "image": null
+    },
+    {
+      "id": 4404409237617,
+      "title": "Paquete Básico Redes Sociales",
+      "body_html": "<h1>Manejo de Redes Sociales.</h1>\n<p>En Born Agencia sabemos que para poder vender en Línea tu Negocio o Empresa debe de tener vida. La mayoría de tus clientes primero entran a tu página y después entran a tus redes sociales, Esto con el fin de ver que es lo que hacen y que es lo que publican. Si tu Página esta increíble pero tus redes sociales no están actualizadas, es muy probable que pierdas a ese cliente. </p>\n<p>El paquete Básico de redes sociales incluye:</p>\n<ul>\n<li>Diseño y creación de templates para publicación</li>\n<li>2 Publicaciones a la Semana.</li>\n<li>Análisis y Selección de Mejores dias y horas para publicar.</li>\n<li>Reposteo en 4 redes sociales a escoger ( Facebook, Instagram, Twitter, Pinterest)</li>\n<li>Integración de tu Página Con redes sociales ( Si lo permite)</li>\n<li>Tagueo de productos en Redes sociales. ( Si lo permite)</li>\n<li>Cambio de Banners y portadas en Facebook e instagram 1 vez al mes.</li>\n</ul>\n<p>El precio mostrado es una Iguala Mensual.</p>",
+      "vendor": "BornMX",
+      "product_type": "Redes sociales",
+      "created_at": "2020-02-26T21:09:34-05:00",
+      "handle": "paquete-basico-redes-sociales",
+      "updated_at": "2025-07-16T02:04:49-04:00",
+      "published_at": "2020-02-26T20:35:10-05:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4404409237617",
+      "variants": [
+        {
+          "id": 31402227171441,
+          "product_id": 4404409237617,
+          "title": "Default Title",
+          "price": "2200.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-02-26T21:09:34-05:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32929596735601,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31402227171441",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5728288538737,
+          "product_id": 4404409237617,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14239730040945,
+          "alt": null,
+          "position": 1,
+          "product_id": 4404409237617,
+          "created_at": "2020-04-09T14:16:56-04:00",
+          "updated_at": "2020-04-09T14:17:03-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6408248983665",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_RedessocialesPaqueteBasico_2.png?v=1586456223",
+          "variant_ids": []
+        },
+        {
+          "id": 14008894783601,
+          "alt": null,
+          "position": 2,
+          "product_id": 4404409237617,
+          "created_at": "2020-02-26T21:09:34-05:00",
+          "updated_at": "2020-04-09T14:17:03-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6177311424625",
+          "width": 1730,
+          "height": 1155,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/manejo_de_redes_sociales_en_mexico.jpg?v=1586456223",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14239730040945,
+        "alt": null,
+        "position": 1,
+        "product_id": 4404409237617,
+        "created_at": "2020-04-09T14:16:56-04:00",
+        "updated_at": "2020-04-09T14:17:03-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6408248983665",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_RedessocialesPaqueteBasico_2.png?v=1586456223",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4421332762737,
+      "title": "Paquete de Fotografía de 100 Productos Chicos o Medianos.",
+      "body_html": "<p>El paquete de fotografía de productos incluye:</p>\n<ul>\n<li>Productos en fondo blanco</li>\n<li>Este paquete es para productos chicos y medianos de hasta 50 cm en alguno de sus lados.</li>\n<li>Uso del estudio, luces, camarógrafo.</li>\n<li>Toma y edición de 4 Fotos por producto </li>\n<li>Entrega En Digital en formato JPG y PNG.</li>\n<li>No incluye Accesorios ni Maquillaje de producto.</li>\n<li>El cliente entrega y recoge los productos en la oficina.</li>\n<li>Tiempo de entrega de artes: 20 días después de recibir los productos.</li>\n</ul>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "Fotografía",
+      "created_at": "2020-03-29T12:09:29-04:00",
+      "handle": "paquete-de-fotografia-de-100-productos-chicos-o-medianos",
+      "updated_at": "2025-07-15T20:09:47-04:00",
+      "published_at": "2020-03-29T12:09:29-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4421332762737",
+      "variants": [
+        {
+          "id": 31470134755441,
+          "product_id": 4421332762737,
+          "title": "Default Title",
+          "price": "18490.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-29T12:09:29-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 33000201257073,
+          "inventory_quantity": 1000,
+          "old_inventory_quantity": 1000,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31470134755441",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5751861018737,
+          "product_id": 4421332762737,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14181886722161,
+          "alt": null,
+          "position": 1,
+          "product_id": 4421332762737,
+          "created_at": "2020-03-29T12:09:29-04:00",
+          "updated_at": "2020-03-29T12:09:29-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6350364573809",
+          "width": 600,
+          "height": 400,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/photostudio_c74e920d-7de2-42cc-bfec-a035666c41f7.jpg?v=1585498169",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14181886722161,
+        "alt": null,
+        "position": 1,
+        "product_id": 4421332762737,
+        "created_at": "2020-03-29T12:09:29-04:00",
+        "updated_at": "2020-03-29T12:09:29-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6350364573809",
+        "width": 600,
+        "height": 400,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/photostudio_c74e920d-7de2-42cc-bfec-a035666c41f7.jpg?v=1585498169",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4421331648625,
+      "title": "Paquete de Fotografía de 20 Productos Chicos o Medianos.",
+      "body_html": "<p>El paquete de fotografía de productos incluye:</p>\n<ul>\n<li>Productos en fondo blanco</li>\n<li>Este paquete es para productos chicos y medianos de hasta 50 cm en alguno de sus lados.</li>\n<li>Uso del estudio, luces, camarógrafo.</li>\n<li>Toma y edición de 4 Fotos por producto </li>\n<li>Entrega En Digital en formato JPG y PNG.</li>\n<li>No incluye Accesorios ni Maquillaje de producto.</li>\n<li>El cliente entrega y recoge los productos en la oficina.</li>\n<li>Tiempo de entrega de artes: 20 días después de recibir los productos.</li>\n</ul>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "Fotografía",
+      "created_at": "2020-03-29T12:05:14-04:00",
+      "handle": "paquete-de-fotografia-de-20-productos-chicos-o-medianos",
+      "updated_at": "2025-07-16T17:16:05-04:00",
+      "published_at": "2020-03-29T12:05:14-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4421331648625",
+      "variants": [
+        {
+          "id": 31470129414257,
+          "product_id": 4421331648625,
+          "title": "Default Title",
+          "price": "3990.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-29T12:05:14-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 33000195915889,
+          "inventory_quantity": 1000,
+          "old_inventory_quantity": 1000,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31470129414257",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5751859740785,
+          "product_id": 4421331648625,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14181872894065,
+          "alt": null,
+          "position": 1,
+          "product_id": 4421331648625,
+          "created_at": "2020-03-29T12:05:15-04:00",
+          "updated_at": "2020-03-29T12:05:15-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6350350712945",
+          "width": 600,
+          "height": 400,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/photostudio_4654435a-cc56-4b18-a810-cfd27ba86c06.jpg?v=1585497915",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14181872894065,
+        "alt": null,
+        "position": 1,
+        "product_id": 4421331648625,
+        "created_at": "2020-03-29T12:05:15-04:00",
+        "updated_at": "2020-03-29T12:05:15-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6350350712945",
+        "width": 600,
+        "height": 400,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/photostudio_4654435a-cc56-4b18-a810-cfd27ba86c06.jpg?v=1585497915",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4421335810161,
+      "title": "Paquete de Fotografía de 20 Productos Grandes (Mayor a 50cm)",
+      "body_html": "<p>El paquete de fotografía de productos incluye:</p>\n<ul>\n<li>Productos en fondo blanco</li>\n<li>Este paquete es para productos grandes cuando uno de sus lados sea mayor a 50 cm y con tope de hasta 2.5 m.</li>\n<li>Uso del estudio, luces, camarógrafo.</li>\n<li>Toma y edición de 4 Fotos por producto </li>\n<li>Entrega En Digital en formato JPG y PNG.</li>\n<li>No incluye Accesorios ni Maquillaje de producto.</li>\n<li>El cliente entrega y recoge los productos en el estudio.</li>\n<li>Tiempo de entrega de artes: 20 días después de recibir los productos.</li>\n<li>Se necesita agendar cita para toma de fotografías.</li>\n</ul>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "Fotografía",
+      "created_at": "2020-03-29T12:21:06-04:00",
+      "handle": "paquete-de-fotografia-de-20-productos-grandes-mayor-a-50cm",
+      "updated_at": "2025-07-16T02:07:25-04:00",
+      "published_at": "2020-03-29T12:21:06-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4421335810161",
+      "variants": [
+        {
+          "id": 31470150713457,
+          "product_id": 4421335810161,
+          "title": "Default Title",
+          "price": "29900.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-29T12:21:06-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 33000218230897,
+          "inventory_quantity": 1000,
+          "old_inventory_quantity": 1000,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31470150713457",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5751865114737,
+          "product_id": 4421335810161,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14181910020209,
+          "alt": null,
+          "position": 1,
+          "product_id": 4421335810161,
+          "created_at": "2020-03-29T12:21:06-04:00",
+          "updated_at": "2020-03-29T12:21:06-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6350387839089",
+          "width": 1100,
+          "height": 732,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/fotografiadeproductosgrandes_117e7104-7421-41c7-a6e5-e50ed865cf14.jpg?v=1585498866",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14181910020209,
+        "alt": null,
+        "position": 1,
+        "product_id": 4421335810161,
+        "created_at": "2020-03-29T12:21:06-04:00",
+        "updated_at": "2020-03-29T12:21:06-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6350387839089",
+        "width": 1100,
+        "height": 732,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/fotografiadeproductosgrandes_117e7104-7421-41c7-a6e5-e50ed865cf14.jpg?v=1585498866",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4421331550321,
+      "title": "Paquete de Fotografía de 5 Productos Chicos o Medianos.",
+      "body_html": "<p>El paquete de fotografía de productos incluye:</p>\n<ul>\n<li>Productos en fondo blanco</li>\n<li>Este paquete es para productos chicos y medianos de hasta 50 cm en alguno de sus lados.</li>\n<li>Uso del estudio, luces, camarógrafo.</li>\n<li>Toma y edición de 4 Fotos por producto </li>\n<li>Entrega En Digital en formato JPG y PNG.</li>\n<li>No incluye Accesorios ni Maquillaje de producto.</li>\n<li>El cliente entrega y recoge los productos en la oficina.</li>\n<li>Tiempo de entrega de artes: 20 días después de recibir los productos.</li>\n</ul>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "Fotografía",
+      "created_at": "2020-03-29T12:04:55-04:00",
+      "handle": "paquete-de-fotografia-de-5-productos-chicos-o-medianos",
+      "updated_at": "2025-07-16T21:51:20-04:00",
+      "published_at": "2020-03-29T11:51:03-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4421331550321",
+      "variants": [
+        {
+          "id": 31470129250417,
+          "product_id": 4421331550321,
+          "title": "Default Title",
+          "price": "990.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-29T12:04:56-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 33000195752049,
+          "inventory_quantity": 1000,
+          "old_inventory_quantity": 1000,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31470129250417",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5751859642481,
+          "product_id": 4421331550321,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14181872435313,
+          "alt": null,
+          "position": 1,
+          "product_id": 4421331550321,
+          "created_at": "2020-03-29T12:04:57-04:00",
+          "updated_at": "2020-03-29T12:04:57-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6350350254193",
+          "width": 600,
+          "height": 400,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/photostudio.jpg?v=1585497897",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14181872435313,
+        "alt": null,
+        "position": 1,
+        "product_id": 4421331550321,
+        "created_at": "2020-03-29T12:04:57-04:00",
+        "updated_at": "2020-03-29T12:04:57-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6350350254193",
+        "width": 600,
+        "height": 400,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/photostudio.jpg?v=1585497897",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4421334532209,
+      "title": "Paquete de Fotografía de 5 Productos Grandes (Mayor a 50cm)",
+      "body_html": "<p>El paquete de fotografía de productos incluye:</p>\n<ul>\n<li>Productos en fondo blanco</li>\n<li>Este paquete es para productos grandes cuando uno de sus lados sea mayor a 50 cm y con tope de hasta 2.5 m.</li>\n<li>Uso del estudio, luces, camarógrafo.</li>\n<li>Toma y edición de 4 Fotos por producto </li>\n<li>Entrega En Digital en formato JPG y PNG.</li>\n<li>No incluye Accesorios ni Maquillaje de producto.</li>\n<li>El cliente entrega y recoge los productos en el estudio.</li>\n<li>Tiempo de entrega de artes: 20 días después de recibir los productos.</li>\n<li>Se necesita agendar cita para toma de fotografías.</li>\n</ul>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "Fotografía",
+      "created_at": "2020-03-29T12:16:31-04:00",
+      "handle": "paquete-de-fotografia-de-1-producto-grande-mayor-a-50cm",
+      "updated_at": "2025-07-18T03:00:00-04:00",
+      "published_at": "2020-03-29T12:16:31-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4421334532209",
+      "variants": [
+        {
+          "id": 31470146027633,
+          "product_id": 4421334532209,
+          "title": "Default Title",
+          "price": "8900.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-29T12:16:32-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 33000212988017,
+          "inventory_quantity": 1000,
+          "old_inventory_quantity": 1000,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31470146027633",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5751863181425,
+          "product_id": 4421334532209,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14181906579569,
+          "alt": null,
+          "position": 1,
+          "product_id": 4421334532209,
+          "created_at": "2020-03-29T12:19:14-04:00",
+          "updated_at": "2020-03-29T12:19:14-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6350384398449",
+          "width": 1100,
+          "height": 732,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/fotografiadeproductosgrandes.jpg?v=1585498754",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14181906579569,
+        "alt": null,
+        "position": 1,
+        "product_id": 4421334532209,
+        "created_at": "2020-03-29T12:19:14-04:00",
+        "updated_at": "2020-03-29T12:19:14-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6350384398449",
+        "width": 1100,
+        "height": 732,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/fotografiadeproductosgrandes.jpg?v=1585498754",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4421332467825,
+      "title": "Paquete de Fotografía de 50 Productos Chicos o Medianos.",
+      "body_html": "<p>El paquete de fotografía de productos incluye:</p>\n<ul>\n<li>Productos en fondo blanco</li>\n<li>Este paquete es para productos chicos y medianos de hasta 50 cm en alguno de sus lados.</li>\n<li>Uso del estudio, luces, camarógrafo.</li>\n<li>Toma y edición de 4 Fotos por producto </li>\n<li>Entrega En Digital en formato JPG y PNG.</li>\n<li>No incluye Accesorios ni Maquillaje de producto.</li>\n<li>El cliente entrega y recoge los productos en la oficina.</li>\n<li>Tiempo de entrega de artes: 20 días después de recibir los productos.</li>\n</ul>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "Fotografía",
+      "created_at": "2020-03-29T12:08:33-04:00",
+      "handle": "paquete-de-fotografia-de-50-productos-chicos-o-medianos",
+      "updated_at": "2025-07-17T06:50:02-04:00",
+      "published_at": "2020-03-29T12:08:33-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4421332467825",
+      "variants": [
+        {
+          "id": 31470133182577,
+          "product_id": 4421332467825,
+          "title": "Default Title",
+          "price": "8990.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-29T12:08:33-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 33000199684209,
+          "inventory_quantity": 1000,
+          "old_inventory_quantity": 1000,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31470133182577",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5751860592753,
+          "product_id": 4421332467825,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14181885116529,
+          "alt": null,
+          "position": 1,
+          "product_id": 4421332467825,
+          "created_at": "2020-03-29T12:08:33-04:00",
+          "updated_at": "2020-03-29T12:08:34-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6350362968177",
+          "width": 600,
+          "height": 400,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/photostudio_418d906b-2402-4d8d-8c36-af4f0b5896f0.jpg?v=1585498114",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14181885116529,
+        "alt": null,
+        "position": 1,
+        "product_id": 4421332467825,
+        "created_at": "2020-03-29T12:08:33-04:00",
+        "updated_at": "2020-03-29T12:08:34-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6350362968177",
+        "width": 600,
+        "height": 400,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/photostudio_418d906b-2402-4d8d-8c36-af4f0b5896f0.jpg?v=1585498114",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4404409270385,
+      "title": "Paquete Emprendedor Redes Sociales",
+      "body_html": "<h1>Manejo de Redes Sociales.</h1>\n<p>En Born Agencia sabemos que para poder vender en Línea tu Negocio o Empresa debe de tener vida. La mayoría de tus clientes primero entran a tu página y después entran a tus redes sociales, Esto con el fin de ver que es lo que hacen y que es lo que publican. Si tu Página esta increíble pero tus redes sociales no están actualizadas, es muy probable que pierdas a ese cliente. </p>\n<p>El paquete Básico de redes sociales incluye:</p>\n<ul>\n<li>Diseño y creación de templates para publicación</li>\n<li>4 Publicaciones a la Semana.</li>\n<li>2 Stories a la semana.</li>\n<li>Análisis y Selección de Mejores días y horas para publicar.</li>\n<li>Reposteo en 4 redes sociales a escoger ( Facebook, Instagram, Twitter, Pinterest)</li>\n<li>Integración de tu Página Con redes sociales ( Si lo permite)</li>\n<li>Tagueo de productos en Redes sociales. ( Si lo permite)</li>\n<li>Cambio de Banners y portadas en Facebook e Instagram una vez al mes.</li>\n<li>Creación de íconos para botones de Instagram.</li>\n</ul>\n<p>El precio mostrado es una Iguala Mensual.</p>",
+      "vendor": "BornMX",
+      "product_type": "Redes sociales",
+      "created_at": "2020-02-26T21:10:10-05:00",
+      "handle": "paquete-emprendedor-redes-sociales",
+      "updated_at": "2025-07-17T08:12:41-04:00",
+      "published_at": "2020-02-26T21:10:10-05:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4404409270385",
+      "variants": [
+        {
+          "id": 31402227204209,
+          "product_id": 4404409270385,
+          "title": "Default Title",
+          "price": "3900.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-02-26T21:10:10-05:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32929596768369,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31402227204209",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5728288571505,
+          "product_id": 4404409270385,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14239744262257,
+          "alt": null,
+          "position": 1,
+          "product_id": 4404409270385,
+          "created_at": "2020-04-09T14:18:46-04:00",
+          "updated_at": "2020-04-09T14:18:47-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6408263958641",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_PaqueteEmprendedor.png?v=1586456327",
+          "variant_ids": []
+        },
+        {
+          "id": 14008895209585,
+          "alt": null,
+          "position": 2,
+          "product_id": 4404409270385,
+          "created_at": "2020-02-26T21:10:11-05:00",
+          "updated_at": "2020-04-09T14:18:47-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6177311850609",
+          "width": 1730,
+          "height": 1155,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/manejo_de_redes_sociales_en_mexico_b6246acf-b6da-410f-a38f-2b9d37491742.jpg?v=1586456327",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14239744262257,
+        "alt": null,
+        "position": 1,
+        "product_id": 4404409270385,
+        "created_at": "2020-04-09T14:18:46-04:00",
+        "updated_at": "2020-04-09T14:18:47-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6408263958641",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_PaqueteEmprendedor.png?v=1586456327",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4404409761905,
+      "title": "Paquete Master Redes Sociales",
+      "body_html": "<h1>Manejo de Redes Sociales.</h1>\n<p>En Born Agencia sabemos que para poder vender en Línea tu Negocio o Empresa debe de tener vida. La mayoría de tus clientes primero entran a tu página y después entran a tus redes sociales, Esto con el fin de ver qué es lo que hacen y qué es lo que publican. Si tu Página esta increíble pero tus redes sociales no están actualizadas, es muy probable que pierdas a ese cliente. </p>\n<p>El paquete Básico de redes sociales incluye:</p>\n<ul>\n<li>Diseño y creación de templates para publicación</li>\n<li>6 Publicaciones a la Semana.</li>\n<li>4 Stories a la semana.</li>\n<li>Análisis y Selección de Mejores días y horas para publicar.</li>\n<li>Reposteo en 4 redes sociales a escoger ( Facebook, Instagram, Twitter, Pinterest)</li>\n<li>Integración de tu Página Con redes sociales ( Si lo permite)</li>\n<li>Tagueo de productos en Redes sociales. ( Si lo permite)</li>\n<li>Cambio de Banners y portadas en Facebook e Instagram una vez al mes.</li>\n<li>Creación de Iconos para botones de Instagram.</li>\n<li>Diseñador Personal para tu cuenta.</li>\n</ul>\n<p>El precio mostrado es una Iguala Mensual.</p>",
+      "vendor": "BornMX",
+      "product_type": "Redes sociales",
+      "created_at": "2020-02-26T21:12:39-05:00",
+      "handle": "paquete-master-redes-sociales",
+      "updated_at": "2025-07-17T11:10:53-04:00",
+      "published_at": "2020-02-26T21:12:39-05:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4404409761905",
+      "variants": [
+        {
+          "id": 31402230513777,
+          "product_id": 4404409761905,
+          "title": "Default Title",
+          "price": "6900.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-02-26T21:12:39-05:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32929600077937,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31402230513777",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5728289259633,
+          "product_id": 4404409761905,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14239754322033,
+          "alt": null,
+          "position": 1,
+          "product_id": 4404409761905,
+          "created_at": "2020-04-09T14:20:09-04:00",
+          "updated_at": "2020-04-09T14:20:10-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6408273854577",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_PaqueteMaster.png?v=1586456410",
+          "variant_ids": []
+        },
+        {
+          "id": 14008899895409,
+          "alt": null,
+          "position": 2,
+          "product_id": 4404409761905,
+          "created_at": "2020-02-26T21:12:40-05:00",
+          "updated_at": "2020-04-09T14:20:10-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6177316536433",
+          "width": 1730,
+          "height": 1155,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/manejo_de_redes_sociales_en_mexico_946f5a10-3a7d-420c-80bb-1898c1418216.jpg?v=1586456410",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14239754322033,
+        "alt": null,
+        "position": 1,
+        "product_id": 4404409761905,
+        "created_at": "2020-04-09T14:20:09-04:00",
+        "updated_at": "2020-04-09T14:20:10-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6408273854577",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_PaqueteMaster.png?v=1586456410",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4413950361713,
+      "title": "Set Up Facebook / Instagram Ads Large",
+      "body_html": "<meta charset=\"utf-8\">\n<p>Muchas Empresas quieren anunciarse en Facebook e Instagram y que sus anuncios aparezcan en los primeros lugares.</p>\n<p>En Born llevamos más de muchos años Anunciando a nuestras empresas y a nuestros clientes por medio de Facebook e Instagram, por medio de Facebook Ads. </p>\n<p>Con el paso de los años hemos aprendido a crear campañas mejor enfocadas, con mejores rendimientos y con un gasto mucho menor. </p>\n<p>El servicio de Set Up de Facebook Ads se trata de crear tu cuenta de Facebook Business y empezar a vender casi inmediatamente. </p>\n<p>El servicio incluye:</p>\n<ul>\n<li>Creación de 12 campañas dirigidas</li>\n<li>Cada campaña incluye 1 Grupo de anuncios</li>\n<li>Cada grupo de anuncios incluye 3 Anuncios Diferentes</li>\n</ul>\n<p>Esta campaña es ideal para empresas que quieran ofrecer 3 Servicios o productos diferentes.</p>\n<p>Ejemplo de empresas que les funciona este paquete:</p>\n<ul>\n<li>Empresas que quieran ofrecer hasta 3 productos o servicios diferentes.</li>\n<ul></ul>\n</ul>\n<ul>\n<li>Despachos de Abogados y Contadores que quieren anunciar sus servicios</li>\n</ul>\n<ul>\n<li>El costo de crear la campaña NO incluye presupuesto para anuncios.<br>\n</li>\n</ul>\n<p>Cada cliente decide la cantidad que quiera invertir en anuncios.  Lo ideal es empezar con un presupuesto de entre $3,000 y $5,000 pesos al mes para después de ver resultados empezar a crecerlo.</p>\n<p>Dependiendo del gasto en anuncios mensual se cobra un porcentaje de el gasto mensual por dar seguimiento y ajustar la campaña para generar mejores resultados.</p>\n<p> </p>\n<p>  </p>",
+      "vendor": "BornMX",
+      "product_type": "Tu campaña",
+      "created_at": "2020-03-13T18:57:16-04:00",
+      "handle": "set-up-facebook-instagram-ads-large",
+      "updated_at": "2025-07-18T07:47:28-04:00",
+      "published_at": "2020-03-13T18:57:16-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4413950361713",
+      "variants": [
+        {
+          "id": 31438797865073,
+          "product_id": 4413950361713,
+          "title": "Default Title",
+          "price": "19500.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-13T18:57:16-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32967547682929,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31438797865073",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5741929070705,
+          "product_id": 4413950361713,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229182152817,
+          "alt": null,
+          "position": 1,
+          "product_id": 4413950361713,
+          "created_at": "2020-04-07T19:42:52-04:00",
+          "updated_at": "2020-04-07T19:42:54-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397695295601",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Product_FacebookAdsLarge.png?v=1586302974",
+          "variant_ids": []
+        },
+        {
+          "id": 14100405715057,
+          "alt": null,
+          "position": 2,
+          "product_id": 4413950361713,
+          "created_at": "2020-03-13T18:57:16-04:00",
+          "updated_at": "2020-04-07T19:42:54-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6268827369585",
+          "width": 736,
+          "height": 461,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/facebookeinstagramanuncios_1e0b666e-63fd-4833-a04f-90b1c961af48.jpg?v=1586302974",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229182152817,
+        "alt": null,
+        "position": 1,
+        "product_id": 4413950361713,
+        "created_at": "2020-04-07T19:42:52-04:00",
+        "updated_at": "2020-04-07T19:42:54-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397695295601",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Product_FacebookAdsLarge.png?v=1586302974",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4413950230641,
+      "title": "Set Up Facebook / Instagram Ads Medium",
+      "body_html": "<meta charset=\"utf-8\">\n<p>Muchas Empresas quieren anunciarse en Facebook e Instagram y que sus anuncios aparezcan en los primeros lugares.</p>\n<p>En Born llevamos más de muchos años Anunciando a nuestras empresas y a nuestros clientes por medio de Facebook e Instagram, por medio de Facebook Ads. </p>\n<p>Con el paso de los años hemos aprendido a crear campañas mejor enfocadas, con mejores rendimientos y con un gasto mucho menor. </p>\n<p>El servicio de Set Up de Facebook Ads se trata de crear tu cuenta de Facebook Business y empezar a vender casi inmediatamente. </p>\n<p>El servicio incluye:</p>\n<ul>\n<li>Creación de 6 campañas dirigidas</li>\n<li>Cada campaña incluye 1 Grupo de anuncios</li>\n<li>Cada grupo de anuncios incluye 3 Anuncios Diferentes</li>\n</ul>\n<p>Esta campaña es ideal para empresas que quieran ofrecer 3 Servicios o productos diferentes.</p>\n<p>Ejemplo de empresas que les funciona este paquete:</p>\n<ul>\n<li>Empresas que quieran ofrecer hasta 3 productos o servicios diferentes.</li>\n<ul></ul>\n</ul>\n<ul>\n<li>Despachos de Abogados y Contadores que quieren anunciar sus servicios</li>\n</ul>\n<ul>\n<li>El costo de crear la campaña NO incluye presupuesto para anuncios.<br>\n</li>\n</ul>\n<p>Cada cliente decide la cantidad que quiera invertir en anuncios.  Lo ideal es empezar con un presupuesto de entre $3,000 y $5,000 pesos al mes para después de ver resultados empezar a crecerlo.</p>\n<p>Dependiendo del gasto en anuncios mensual se cobra un porcentaje de el gasto mensual por dar seguimiento y ajustar la campaña para generar mejores resultados.</p>\n<p> </p>\n<p>  </p>",
+      "vendor": "BornMX",
+      "product_type": "Tu campaña",
+      "created_at": "2020-03-13T18:56:19-04:00",
+      "handle": "set-up-facebook-instagram-ads-medium",
+      "updated_at": "2025-07-17T23:55:46-04:00",
+      "published_at": "2020-03-13T18:56:19-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4413950230641",
+      "variants": [
+        {
+          "id": 31438797537393,
+          "product_id": 4413950230641,
+          "title": "Default Title",
+          "price": "9500.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-13T18:56:19-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32967547355249,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31438797537393",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5741928939633,
+          "product_id": 4413950230641,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229182709873,
+          "alt": null,
+          "position": 1,
+          "product_id": 4413950230641,
+          "created_at": "2020-04-07T19:43:12-04:00",
+          "updated_at": "2020-04-07T19:43:15-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397695852657",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/FacebookAdsMedium.png?v=1586302995",
+          "variant_ids": []
+        },
+        {
+          "id": 14100404797553,
+          "alt": null,
+          "position": 2,
+          "product_id": 4413950230641,
+          "created_at": "2020-03-13T18:56:56-04:00",
+          "updated_at": "2020-04-07T19:43:15-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6268826386545",
+          "width": 736,
+          "height": 461,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/facebookeinstagramanuncios_202629a8-9d3f-4f57-85f6-4c2515c3a41e.jpg?v=1586302995",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229182709873,
+        "alt": null,
+        "position": 1,
+        "product_id": 4413950230641,
+        "created_at": "2020-04-07T19:43:12-04:00",
+        "updated_at": "2020-04-07T19:43:15-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397695852657",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/FacebookAdsMedium.png?v=1586302995",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4413949640817,
+      "title": "Set Up Facebook / Instagram Ads Mini",
+      "body_html": "<p>Muchas Empresas quieren anunciarse en Facebook e Instagram y que sus anuncios aparezcan en los primeros lugares.</p>\n<p>En Born llevamos más de muchos años Anunciando a nuestras empresas y a nuestros clientes por medio de Facebook e Instagram, por medio de Facebook Ads. </p>\n<p>Con el paso de los años hemos aprendido a crear campañas mejor enfocadas, con mejores rendimientos y con un gasto mucho menor. </p>\n<p>El servicio de Set Up de Facebook Ads se trata de crear tu cuenta de Facebook Business y empezar a vender casi inmediatamente. </p>\n<p>El servicio incluye:</p>\n<ul>\n<li>Creación de 3 campañas dirigidas</li>\n<li>Cada campaña incluye 1 Grupo de anuncios</li>\n<li>Cada grupo de anuncios incluye 3 Anuncios Diferentes</li>\n</ul>\n<p>Esta campaña es ideal para empresas que quieran ofrecer 3 Servicios o productos diferentes.</p>\n<p>Ejemplo de empresas que les funciona este paquete:</p>\n<ul>\n<li>Empresas que quieran ofrecer hasta 3 productos o servicios diferentes.</li>\n<ul></ul>\n</ul>\n<ul>\n<li>Despachos de Abogados y Contadores que quieren anunciar sus servicios</li>\n</ul>\n<ul>\n<li>El costo de crear la campaña NO incluye presupuesto para anuncios.<br>\n</li>\n</ul>\n<p>Cada cliente decide la cantidad que quiera invertir en anuncios.  Lo ideal es empezar con un presupuesto de entre $3,000 y $5,000 pesos al mes para después de ver resultados empezar a crecerlo.</p>\n<p>Dependiendo del gasto en anuncios mensual se cobra un porcentaje de el gasto mensual por dar seguimiento y ajustar la campaña para generar mejores resultados.</p>\n<p> </p>\n<p> </p>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "Tu campaña",
+      "created_at": "2020-03-13T18:48:40-04:00",
+      "handle": "set-up-facebook-instagram-ads-mini",
+      "updated_at": "2025-07-18T05:10:53-04:00",
+      "published_at": "2020-03-13T18:48:40-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4413949640817",
+      "variants": [
+        {
+          "id": 31438795571313,
+          "product_id": 4413949640817,
+          "title": "Default Title",
+          "price": "7500.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-03-13T18:48:40-04:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32967545127025,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31438795571313",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5741928185969,
+          "product_id": 4413949640817,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229183430769,
+          "alt": null,
+          "position": 1,
+          "product_id": 4413949640817,
+          "created_at": "2020-04-07T19:43:32-04:00",
+          "updated_at": "2020-04-07T19:43:34-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397696606321",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Product_FacebookAdsMini.png?v=1586303014",
+          "variant_ids": []
+        },
+        {
+          "id": 14100399652977,
+          "alt": null,
+          "position": 2,
+          "product_id": 4413949640817,
+          "created_at": "2020-03-13T18:54:55-04:00",
+          "updated_at": "2020-04-07T19:43:34-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6268821274737",
+          "width": 736,
+          "height": 461,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/facebookeinstagramanuncios.jpg?v=1586303014",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229183430769,
+        "alt": null,
+        "position": 1,
+        "product_id": 4413949640817,
+        "created_at": "2020-04-07T19:43:32-04:00",
+        "updated_at": "2020-04-07T19:43:34-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397696606321",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Product_FacebookAdsMini.png?v=1586303014",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4404704051313,
+      "title": "Set Up Google Ads Large",
+      "body_html": "<p>Muchas Empresas quieren anunciarse en Google y que sus anuncios aparezcan en los primeros lugares.</p>\n<p>En Born llevamos más de 15 años Anunciando a nuestras empresas y a nuestros clientes por medio de google Adwords ahora Google Ads. </p>\n<p>Con el paso de los años hemos aprendido a crear campañas mejor enfocadas, con mejores rendimientos y con un gasto mucho menor. </p>\n<p>El servicio de Set Up de Google Ads se trata de crear tu cuenta de Google Ads y empezar a vender casi inmediatamente. </p>\n<p>El servicio incluye:</p>\n<ul>\n<li>Creación de 12 campañas de Search o Display</li>\n<li>Cada campaña incluye 1 Grupo de anuncios</li>\n<li>Cada grupo de anuncios incluye 3 Anuncios Diferentes y 10 Palabras clave dirigidas.</li>\n</ul>\n<p>Esta campaña es ideal para empresas que quieran ofrecer 3 Servicios o productos diferentes.</p>\n<p>Ejemplo de empresas que les funciona este paquete:</p>\n<ul>\n<li>Empresas de venta de productos o servicios generales dónde quieren anunciar 6 de sus productos o servicios.</li>\n</ul>\n<p>El costo de crear la campaña NO incluye presupuesto para anuncios.</p>\n<p>Cada cliente decide la cantidad que quiera invertir en anuncios.  Lo ideal es empezar con un presupuesto de entre $10,000 y $40,000 pesos al mes para después de ver resultados empezar a crecerlo.</p>\n<p>Dependiendo del gasto en anuncios mensual se cobra un porcentaje del gasto mensual por dar seguimiento y ajustar la campaña para generar mejores resultados.</p>\n<p>El costo del Setup se paga solo una vez.</p>\n<p> </p>\n<p>  </p>",
+      "vendor": "BornMX",
+      "product_type": "Tu campaña",
+      "created_at": "2020-02-27T11:54:36-05:00",
+      "handle": "set-up-google-ads-large",
+      "updated_at": "2025-07-16T19:16:00-04:00",
+      "published_at": "2020-02-27T11:54:36-05:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4404704051313",
+      "variants": [
+        {
+          "id": 31403171414129,
+          "product_id": 4404704051313,
+          "title": "Default Title",
+          "price": "19500.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-02-27T11:54:36-05:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32930591801457,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31403171414129",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5728781697137,
+          "product_id": 4404704051313,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229156855921,
+          "alt": null,
+          "position": 1,
+          "product_id": 4404704051313,
+          "created_at": "2020-04-07T19:36:03-04:00",
+          "updated_at": "2020-04-07T19:36:05-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397670031473",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_GoogleadsLarge.png?v=1586302565",
+          "variant_ids": []
+        },
+        {
+          "id": 14011721449585,
+          "alt": null,
+          "position": 2,
+          "product_id": 4404704051313,
+          "created_at": "2020-02-27T11:54:37-05:00",
+          "updated_at": "2020-04-07T19:36:05-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6180138090609",
+          "width": 1024,
+          "height": 501,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/como_vender_con_google_ads_o_anunciarse_b00d0769-ccc9-4958-8d66-49879bceb725.jpg?v=1586302565",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229156855921,
+        "alt": null,
+        "position": 1,
+        "product_id": 4404704051313,
+        "created_at": "2020-04-07T19:36:03-04:00",
+        "updated_at": "2020-04-07T19:36:05-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397670031473",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_GoogleadsLarge.png?v=1586302565",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4404703494257,
+      "title": "Set Up Google Ads Medium",
+      "body_html": "<p>Muchas Empresas quieren anunciarse en Google y que sus anuncios aparezcan en los primeros lugares.</p>\n<p>En Born llevamos mas de 15 años Anunciando a nuestras empresas y a nuestros clientes por medio de google adwords ahora Google Ads. </p>\n<p>Con el paso de los años hemos aprendido a crear campañas mejor enfocadas, con mejores rendimientos y con un gasto mucho menor. </p>\n<p>El servicio de Set Up de Google Ads se trata de crear tu cuenta de Google Ads y empezar a vender casi inmediatamente. </p>\n<p>El servicio incluye:</p>\n<ul>\n<li>Creación de 6 campañas de Search o Display</li>\n<li>Cada campaña incluye 1 Grupo de anuncios</li>\n<li>Cada grupo de anuncios incluye 3 Anuncios Diferentes y 10 Palabras clave dirigidas.</li>\n</ul>\n<p>Esta campaña es ideal para empresas que quieran ofrecer 3 Servicios o productos diferentes.</p>\n<p>Ejemplo de empresas que les funciona este paquete:</p>\n<ul>\n<li>Empresas de venta de productos o servicios generales dónde quieren anunciar 6 de sus productos o servicios.</li>\n</ul>\n<p>El costo de crear la campaña NO incluye presupuesto para anuncios.</p>\n<p>Cada cliente decide la cantidad que quiera invertir en anuncios.  Lo ideal es empezar con un presupuesto de entre $3,000 y $5,000 pesos al mes para después de ver resultados empezar a crecerlo.</p>\n<p>Dependiendo del gasto en anuncios mensual se cobra un porcentaje del gasto mensual por dar seguimiento y ajustar la campaña para generar mejores resultados.</p>\n<p> </p>\n<p>  </p>",
+      "vendor": "BornMX",
+      "product_type": "Tu campaña",
+      "created_at": "2020-02-27T11:52:59-05:00",
+      "handle": "set-up-google-ads-medium",
+      "updated_at": "2025-07-16T12:56:23-04:00",
+      "published_at": "2020-02-27T11:52:59-05:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4404703494257",
+      "variants": [
+        {
+          "id": 31403170201713,
+          "product_id": 4404703494257,
+          "title": "Default Title",
+          "price": "9500.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-02-27T11:52:59-05:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32930590589041,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31403170201713",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5728781107313,
+          "product_id": 4404703494257,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229158822001,
+          "alt": null,
+          "position": 1,
+          "product_id": 4404703494257,
+          "created_at": "2020-04-07T19:36:54-04:00",
+          "updated_at": "2020-04-07T19:36:56-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397671964785",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_SetupGoogleAdsMedium.png?v=1586302616",
+          "variant_ids": []
+        },
+        {
+          "id": 14011714338929,
+          "alt": null,
+          "position": 2,
+          "product_id": 4404703494257,
+          "created_at": "2020-02-27T11:53:00-05:00",
+          "updated_at": "2020-04-07T19:36:56-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6180130979953",
+          "width": 1024,
+          "height": 501,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/como_vender_con_google_ads_o_anunciarse_d846c86e-c9e7-4f06-b005-eae584a8aae2.jpg?v=1586302616",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229158822001,
+        "alt": null,
+        "position": 1,
+        "product_id": 4404703494257,
+        "created_at": "2020-04-07T19:36:54-04:00",
+        "updated_at": "2020-04-07T19:36:56-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397671964785",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_SetupGoogleAdsMedium.png?v=1586302616",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4404435550321,
+      "title": "Set Up Google Ads Mini",
+      "body_html": "<p>Muchas Empresas quieren anunciarse en Google y que sus anuncios aparezcan en los primeros lugares.</p>\n<p>En Born llevamos mas de 15 años Anunciando a nuestras empresas y a nuestros clientes por medio de google adwords ahora Google Ads. </p>\n<p>Con el paso de los años hemos aprendido a crear campañas mejor enfocadas, con mejores rendimientos y con un gasto mucho menor. </p>\n<p>El servicio de Set Up de Google Ads se trata de crear tu cuenta de Google Ads y empezar a vender casi inmediatamente. </p>\n<p>El servicio incluye:</p>\n<ul>\n<li>Creación de 3 campañas de Search o Display</li>\n<li>Cada campaña incluye 1 Grupo de anuncios</li>\n<li>Cada grupo de anuncios incluye 3 Anuncios Diferentes y 10 Palabras clave dirigidas.</li>\n</ul>\n<p>Esta campaña es ideal para empresas que quieran ofrecer 3 Servicios o productos diferentes.</p>\n<p>Ejemplo de empresas que les funciona este paquete:</p>\n<ul>\n<li>Brokers de seguros donde quieren anunciar por ejemplo:</li>\n<ul>\n<li>Fianzas de Arrendamiento</li>\n<li>Seguros de Auto</li>\n<li>Seguros de Vida</li>\n</ul>\n</ul>\n<ul>\n<li>Despachos de Abogados y Contadores que quieren anunciar sus servicios</li>\n</ul>\n<ul>\n<li>Empresas de venta de productos o servicios generales dónde solo quieren anunciar 3 de ellos.</li>\n</ul>\n<p>El costo de crear la campaña NO incluye presupuesto para anuncios.</p>\n<p>Cada cliente decide la cantidad que quiera invertir en anuncios.  Lo ideal es empezar con un presupuesto de entre $3,000 y $5,000 pesos al mes para después de ver resultados empezar a crecerlo.</p>\n<p>Dependiendo del gasto en anuncios mensual se cobra un porcentaje de el gasto mensual por dar seguimiento y ajustar la campaña para generar mejores resultados.</p>\n<p> </p>\n<p> </p>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "Tu campaña",
+      "created_at": "2020-02-26T21:44:14-05:00",
+      "handle": "set-up-google-ads-mini",
+      "updated_at": "2025-07-18T05:44:53-04:00",
+      "published_at": "2020-02-26T21:14:41-05:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4404435550321",
+      "variants": [
+        {
+          "id": 31402264199281,
+          "product_id": 4404435550321,
+          "title": "Default Title",
+          "price": "7500.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-02-26T21:44:14-05:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32929635336305,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31402264199281",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5728338706545,
+          "product_id": 4404435550321,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229159575665,
+          "alt": null,
+          "position": 1,
+          "product_id": 4404435550321,
+          "created_at": "2020-04-07T19:37:19-04:00",
+          "updated_at": "2020-04-07T19:37:21-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397672718449",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Product_SetupGoogleAdsMini.png?v=1586302641",
+          "variant_ids": []
+        },
+        {
+          "id": 14011625635953,
+          "alt": null,
+          "position": 2,
+          "product_id": 4404435550321,
+          "created_at": "2020-02-27T11:35:01-05:00",
+          "updated_at": "2020-04-07T19:37:21-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6180042276977",
+          "width": 1024,
+          "height": 501,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/como_vender_con_google_ads_o_anunciarse.jpg?v=1586302641",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229159575665,
+        "alt": null,
+        "position": 1,
+        "product_id": 4404435550321,
+        "created_at": "2020-04-07T19:37:19-04:00",
+        "updated_at": "2020-04-07T19:37:21-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397672718449",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Product_SetupGoogleAdsMini.png?v=1586302641",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4404406583409,
+      "title": "Tienda en Línea Large  (Hasta 100 Productos o Variantes)",
+      "body_html": "<p>La <b>Creación de tienda en Línea</b> Mini es aquella <b>Tienda en Línea </b> que cuenta con hasta 100 Productos incluidas las variantes o servicios.</p>\n<p>Ideal para empresas o negocios que buscan una tienda en línea con hasta 100 productos.</p>\n<p>Tipos de Empresas:</p>\n<ul>\n<li>Tiendas con hasta 100 productos Incluyendo Variaciones o Hasta 100 Servicios Incluyendo Variaciones</li>\n<li>Empresas de servicios.</li>\n<li>Empresas que tienen hasta 100 productos pero no quieren que se concreten sus ventas en línea Aún.</li>\n</ul>\n<p>Incluye:</p>\n<ul>\n<li>Creación de la página con todas las directrices de Google para un mejor posicionamiento orgánico.</li>\n<li>Integración de Sistemas de pago. Paypal y Mercado Pago</li>\n<li>Optimizada para Móviles.</li>\n<li>Desarrollo de Sistemas operativos.</li>\n<li>Creación de 1 menú principal y 10 colecciones.</li>\n<li>Creación de 6 páginas informativas y hasta 100 Productos incluyendo variaciones</li>\n<li>Setup de impuestos</li>\n<li>Set up de costos de envíos.</li>\n<li>Setup de Footer (Aviso de Privacidad, Términos del servicio, Política de devoluciones) Template.</li>\n<li>Links a redes sociales.</li>\n<li>Setup Click to Whats App</li>\n<li>Integración con Google Analytics</li>\n<li>Integración con Pixel de Facebook</li>\n<li>Página de Analíticas sobre visitas, productos más vendidos, productos más visitados, datos demográficos.</li>\n<li>Integración con Facebook Shop y Facebook messenger</li>\n<li>Integración con Instagram Shop</li>\n<li>Link Con mapas de ubicación</li>\n<li>Videollamada con un especialista para entender tu negocio y ver la mejor forma de implementar tu tienda.</li>\n<li>8 Sesiones de 30 min de Videollamada para cambios y ajustes.<br>\n</li>\n<li>4 Sesiones de 30 min de Videollamada para capacitación de como usar y optimizar tu tienda.</li>\n</ul>\n<p>Tiempo de entrega 2-4 Semanas después de tener toda la información de tu negocio completa.</p>\n<p>¿Qué necesitamos para empezar?</p>\n<ul>\n<li>Estructura de tu menú principal. Checa la guía de como estructurar tu menú en nuestro<span> </span><a href=\"https://born.mx/blogs/news/como-seleccionar-el-menu-principal-para-mi-pagina-o-tienda-en-linea\" title=\"Como estructurar tu menú\">Blog dándo click aquí</a>. Y descarga el<span> </span><a href=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Plantilla_creacion_de_menus_born.xlsx?v=1593110741\" target=\"_blank\" title=\"Plantilla para crear tu menú\" rel=\"noopener noreferrer\">excel para empezar a estructurarlo aquí.</a>\n</li>\n<li>Excel con la lista de tus productos, descripciones, precios, etc. Te dejamos una plantilla para que empieces a acelerar tu negocio <a href=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Guia_de_creacion_de_productos_BORN.xlsx?v=1593102884\" target=\"_blank\" title=\"Guia de productos excel born\" rel=\"noopener noreferrer\">Descárgala aquí</a>\n</li>\n<li>Carpeta con imágenes de tus productos ( Puede ser en Dropbox o Google drive)</li>\n</ul>\n<p>Usamos Shopify como plataforma, por lo que tu tienda puede tener costos mensuales, los cuáles pagarás directamente a ellos.<br></p>\n<p><span>Paga hasta en 3 meses sin intereses con tarjetas de crédito participantes.</span></p>\n<p><a href=\"https://calendly.com/bornmx/15min?month=2020-06\"><img src=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Analisis_Inicial_Gratis.png?v=1586368081\" alt=\"\"></a></p>\n<p> </p>",
+      "vendor": "BornMX",
+      "product_type": "tiendas en linea",
+      "created_at": "2020-02-26T20:50:37-05:00",
+      "handle": "tienda-en-linea-large-hasta-100-productos",
+      "updated_at": "2025-07-16T20:06:56-04:00",
+      "published_at": "2020-02-26T20:50:37-05:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4404406583409",
+      "variants": [
+        {
+          "id": 31402211967089,
+          "product_id": 4404406583409,
+          "title": "Default Title",
+          "price": "69000.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-02-26T20:50:37-05:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32929579860081,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31402211967089",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5728284737649,
+          "product_id": 4404406583409,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229235073137,
+          "alt": null,
+          "position": 1,
+          "product_id": 4404406583409,
+          "created_at": "2020-04-07T20:05:45-04:00",
+          "updated_at": "2020-04-07T21:17:44-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397748183153",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_TiendaLarge.png?v=1586308664",
+          "variant_ids": []
+        },
+        {
+          "id": 14229487321201,
+          "alt": null,
+          "position": 2,
+          "product_id": 4404406583409,
+          "created_at": "2020-04-07T21:17:51-04:00",
+          "updated_at": "2020-04-07T21:17:51-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6398000660593",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/PartnersPaginas_95653429-9b6f-458a-a29a-923b9041b91d.png?v=1586308671",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229235073137,
+        "alt": null,
+        "position": 1,
+        "product_id": 4404406583409,
+        "created_at": "2020-04-07T20:05:45-04:00",
+        "updated_at": "2020-04-07T21:17:44-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397748183153",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_TiendaLarge.png?v=1586308664",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 4404406124657,
+      "title": "Tienda en Línea Medium / Informativa  (Máximo 25 Productos)",
+      "body_html": "<p>La <b>Creación de tienda en Línea</b> Medium es aquella <b>Tienda en Línea </b> que cuenta con hasta 25 productos incluyendo variaciones, o servicios, o páginas informativas.</p>\n<p>Ideal para empresas o negocios que buscan una página informativa con la opción de vender algunos de sus productos.</p>\n<p>Tipos de Empresas:</p>\n<ul>\n<li>Tiendas con hasta 25 productos o Servicios o páginas informativas.</li>\n<li>Empresas de servicios.</li>\n<li>Empresas que tienen hasta 25 productos pero no quieren que se concreten sus ventas en línea Aún.</li>\n</ul>\n<p>Incluye:</p>\n<ul>\n<li>Creación de la página con todas las directrices de Google para un mejor posicionamiento orgánico.</li>\n<li>Integración de Sistemas de pago. Paypal y Mercado Pago</li>\n<li>Optimizada para Móviles.</li>\n<li>Desarrollo de Sistemas operativos.</li>\n<li>Creación de 1 menú principal y 10 colecciones.</li>\n<li>Creación de 9 páginas informativas y hasta 100<span> </span>Productos incluyendo variaciones</li>\n<li>Setup de impuestos</li>\n<li>Set up de costos de envíos.</li>\n<li>Setup de Footer (Aviso de Privacidad, Términos del servicio, Política de devoluciones) Template.</li>\n<li>Links a redes sociales.</li>\n<li>Setup Click to Whats App</li>\n<li>Integración con Google Analytics</li>\n<li>Integración con Pixel de Facebook</li>\n<li>Página de Analiticas sobre visitas, productos mas vendidos, productos mas visitados, datos demográficos.</li>\n<li>Integración con Facebook Shop y Facebook messenger</li>\n<li>Integración con Instagram Shop</li>\n<li>Link Con mapas de ubicación</li>\n<li>Videollamada con un especialista para entender tu negocio y ver la mejor forma de implementar tu tienda.</li>\n<li>6 Sesiones de 30 min de Videollamada para cambios y ajustes.<br>\n</li>\n<li>4 Sesiones de 30 min de Videollamada para capacitación de como usar y optimizar tu tienda.</li>\n</ul>\n<p>Tiempo de entrega 1 Semana después de tener toda la información de tu negocio completa.</p>\n<p>¿Qué necesitamos para empezar?</p>\n<ul>\n<li>Estructura de tu menú principal. Checa la guía de como estructurar tu menú en nuestro<span> </span><a href=\"https://born.mx/blogs/news/como-seleccionar-el-menu-principal-para-mi-pagina-o-tienda-en-linea\" title=\"Como estructurar tu menú\">Blog dándo click aquí</a>. Y descarga el<span> </span><a href=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Plantilla_creacion_de_menus_born.xlsx?v=1593110741\" target=\"_blank\" title=\"Plantilla para crear tu menú\" rel=\"noopener noreferrer\">excel para empezar a estructurarlo aquí.</a>\n</li>\n<li>Excel con la lista de tus productos, descripciones, precios, etc. Te dejamos una plantilla para que empieces a acelerar tu negocio <a href=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Guia_de_creacion_de_productos_BORN.xlsx?v=1593102884\" target=\"_blank\" title=\"Guia de productos excel born\" rel=\"noopener noreferrer\">Descárgala aquí</a>\n</li>\n<li>Carpeta con imágenes de tus productos ( Puede ser en Dropbox o Google drive)</li>\n</ul>\n<p>Usamos Shopify como plataforma, por lo que tu tienda puede tener costos mensuales, los cuáles pagarás directamente a ellos.<br></p>\n<meta charset=\"utf-8\">\n<p><a href=\"https://calendly.com/bornmx/15min?month=2020-06\"><img src=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Analisis_Inicial_Gratis.png?v=1586368081\" alt=\"\"></a></p>\n<p><span>Paga hasta en 3 meses sin intereses con tarjetas de crédito participantes.</span></p>\n<br>",
+      "vendor": "BornMX",
+      "product_type": "tiendas en linea",
+      "created_at": "2020-02-26T20:47:37-05:00",
+      "handle": "tienda-en-linea-medium-informativa-maximo-25-productos",
+      "updated_at": "2025-07-17T10:37:21-04:00",
+      "published_at": "2020-02-26T20:47:37-05:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/4404406124657",
+      "variants": [
+        {
+          "id": 31402211213425,
+          "product_id": 4404406124657,
+          "title": "Default Title",
+          "price": "39000.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": null,
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2020-02-26T20:47:37-05:00",
+          "updated_at": "2023-10-27T11:56:46-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 32929577992305,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/31402211213425",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5728283983985,
+          "product_id": 4404406124657,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229316272241,
+          "alt": null,
+          "position": 1,
+          "product_id": 4404406124657,
+          "created_at": "2020-04-07T20:22:30-04:00",
+          "updated_at": "2020-04-07T21:17:29-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397829480561",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_TiendaMedium_2.png?v=1586308649",
+          "variant_ids": []
+        },
+        {
+          "id": 14229486993521,
+          "alt": null,
+          "position": 2,
+          "product_id": 4404406124657,
+          "created_at": "2020-04-07T21:17:35-04:00",
+          "updated_at": "2020-04-07T21:17:35-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6398000300145",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/PartnersPaginas_ed8f5109-b88c-4529-b6d3-e4b64afa38a7.png?v=1586308655",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229316272241,
+        "alt": null,
+        "position": 1,
+        "product_id": 4404406124657,
+        "created_at": "2020-04-07T20:22:30-04:00",
+        "updated_at": "2020-04-07T21:17:29-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397829480561",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_TiendaMedium_2.png?v=1586308649",
+        "variant_ids": []
+      }
+    },
+    {
+      "id": 3991021846641,
+      "title": "Tienda en Línea Mini / Informativa / Landing Page  (Máximo 10 Productos)",
+      "body_html": "<p>La <b>Creación de tienda en Línea</b> Mini es aquella <b>Tienda en Línea </b> que cuenta con menos de 10 Productos o servicios o páginas informativas sin venta en línea.</p>\n<p>Ideal para empresas o negocios que buscan una página para vender en línea con pocos productos o una página informativa con la opción de vender algunos de sus productos.</p>\n<p>Tipos de Empresas:</p>\n<ul>\n<li>Tiendas con menos de 10 Productos y que quieren crecerlo en el futuro.</li>\n<li>Cualquier empresa que tiene productos o servicios y quieren vender en línea </li>\n</ul>\n<p>Incluye:</p>\n<ul>\n<li>Creación de la página con todas las directrices de Google para un mejor posicionamiento orgánico.</li>\n<li>Integración de Sistemas de pago. Paypal y Mercado Pago</li>\n<li>Optimizada para Móviles.</li>\n<li>Desarrollo de Sistemas operativos.</li>\n<li>Creación de 1 menú principal y 10 colecciones.</li>\n<li>Creación de 6 páginas informativas o hasta 100<span> </span>Productos incluyendo variaciones</li>\n<li>Setup de impuestos</li>\n<li>Set up de costos de envíos.</li>\n<li>Setup de Footer (Aviso de Privacidad, Términos del servicio, Política de devoluciones) Template.</li>\n<li>Links a redes sociales.</li>\n<li>Setup Click to Whats App</li>\n<li>Integración con Google Analytics</li>\n<li>Integración con Pixel de Facebook</li>\n<li>Página de Analiticas sobre visitas, productos mas vendidos, productos mas visitados, datos demográficos.</li>\n<li>Integración con Facebook Shop y Facebook messenger</li>\n<li>Integración con Instagram Shop</li>\n<li>Link Con mapas de ubicación</li>\n<li> Videollamada con un especialista para entender tu negocio y ver la mejor forma de implementar tu tienda.</li>\n<li>6 Sesiones de 30 min de Videollamada para cambios y ajustes.<br>\n</li>\n</ul>\n<ul>\n<li>4 Sesiones de 30 min de Videollamada para capacitación de como usar y optimizar tu tienda.</li>\n</ul>\n<p>Tiempo de entrega 1 Semana después de tener toda la información de tu negocio completa.</p>\n<p>¿Qué necesitamos para empezar?</p>\n<meta charset=\"utf-8\">\n<ul>\n<li>Estructura de tu menú principal. Checa la guía de como estructurar tu menú en nuestro <a href=\"https://born.mx/blogs/news/como-seleccionar-el-menu-principal-para-mi-pagina-o-tienda-en-linea\" title=\"Como estructurar tu menú\">Blog dándo click aquí</a>. Y descarga el <a href=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Plantilla_creacion_de_menus_born.xlsx?v=1593110741\" target=\"_blank\" title=\"Plantilla para crear tu menú\" rel=\"noopener noreferrer\">excel para empezar a estructurarlo aquí.</a>\n</li>\n<li>Excel con la lista de tus productos, descripciones, precios, etc. Te dejamos una plantilla para que empieces a acelerar tu negocio <a href=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Guia_de_creacion_de_productos_BORN.xlsx?v=1593102884\" target=\"_blank\" title=\"Guia de productos excel born\" rel=\"noopener noreferrer\">Descárgala aquí</a>\n</li>\n<li>Carpeta con imágenes de tus productos ( Puede ser en Dropbox o Google drive)</li>\n</ul>\n<p>Usamos Shopify como plataforma, por lo que tu tienda puede tener costos mensuales, los cuáles pagarás directamente a ellos.<br></p>\n<meta charset=\"utf-8\">\n<p><a href=\"https://calendly.com/bornmx/15min?month=2020-06\"><img src=\"https://cdn.shopify.com/s/files/1/0019/3655/6145/files/Analisis_Inicial_Gratis.png?v=1586368081\" alt=\"\"></a></p>\n<p><span>Paga hasta en 3 meses sin intereses con tarjetas de crédito participantes.</span></p>",
+      "vendor": "BornMX",
+      "product_type": "tiendas en linea",
+      "created_at": "2019-08-02T11:57:35-04:00",
+      "handle": "tienda-en-linea-mini-maximo-10-productos",
+      "updated_at": "2025-07-16T17:08:38-04:00",
+      "published_at": "2019-08-02T11:34:24-04:00",
+      "template_suffix": "",
+      "published_scope": "web",
+      "tags": "",
+      "status": "active",
+      "admin_graphql_api_id": "gid://shopify/Product/3991021846641",
+      "variants": [
+        {
+          "id": 29497455837297,
+          "product_id": 3991021846641,
+          "title": "Default Title",
+          "price": "14900.00",
+          "position": 1,
+          "inventory_policy": "deny",
+          "compare_at_price": "25900.00",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "created_at": "2019-08-02T11:57:35-04:00",
+          "updated_at": "2023-10-27T11:56:45-04:00",
+          "taxable": true,
+          "barcode": "",
+          "fulfillment_service": "manual",
+          "grams": 0,
+          "inventory_management": "shopify",
+          "requires_shipping": true,
+          "sku": "",
+          "weight": 0.0,
+          "weight_unit": "kg",
+          "inventory_item_id": 30668251168881,
+          "inventory_quantity": 100,
+          "old_inventory_quantity": 100,
+          "admin_graphql_api_id": "gid://shopify/ProductVariant/29497455837297",
+          "image_id": null
+        }
+      ],
+      "options": [
+        {
+          "id": 5198365196401,
+          "product_id": 3991021846641,
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "id": 14229192933489,
+          "alt": null,
+          "position": 1,
+          "product_id": 3991021846641,
+          "created_at": "2020-04-07T19:51:16-04:00",
+          "updated_at": "2020-04-07T21:16:46-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397706076273",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_TiendaMini10Productos.png?v=1586308606",
+          "variant_ids": []
+        },
+        {
+          "id": 14229486534769,
+          "alt": null,
+          "position": 2,
+          "product_id": 3991021846641,
+          "created_at": "2020-04-07T21:17:15-04:00",
+          "updated_at": "2020-04-07T21:17:15-04:00",
+          "admin_graphql_api_id": "gid://shopify/MediaImage/6397999874161",
+          "width": 1000,
+          "height": 1000,
+          "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/PartnersPaginas.png?v=1586308635",
+          "variant_ids": []
+        }
+      ],
+      "image": {
+        "id": 14229192933489,
+        "alt": null,
+        "position": 1,
+        "product_id": 3991021846641,
+        "created_at": "2020-04-07T19:51:16-04:00",
+        "updated_at": "2020-04-07T21:16:46-04:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/6397706076273",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0019/3655/6145/products/Products_TiendaMini10Productos.png?v=1586308606",
+        "variant_ids": []
+      }
+    }
+  ]
+}

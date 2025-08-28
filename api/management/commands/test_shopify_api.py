@@ -169,7 +169,10 @@ class Command(BaseCommand):
         # Ensure shop URL doesn't have protocol
         if shop_url.startswith('http'):
             shop_url = shop_url.replace('https://', '').replace('http://', '')
-        
+        self.stdout.write(f"shop_url: {shop_url}")
+        self.stdout.write(f"api_version: {api_version}")
+        self.stdout.write(f"endpoint: {endpoint}")
+        self.stdout.write(f"https://{shop_url}/admin/api/{api_version}/{endpoint}")
         return f"https://{shop_url}/admin/api/{api_version}/{endpoint}"
 
     def test_authentication(self):

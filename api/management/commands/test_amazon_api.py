@@ -93,6 +93,7 @@ class Command(BaseCommand):
 
     def setup_spapi_credentials(self):
         """Set up environment variables for spapi authentication"""
+        self.stdout.write("setup_spapi_credentials")
         # Check if required environment variables are set
         required_vars = [
             'LWA_APP_ID',
@@ -128,10 +129,11 @@ class Command(BaseCommand):
             os.environ['SP_API_REGION'] = 'us-east-1'
         if 'SP_API_MARKETPLACE_ID' not in os.environ:
             os.environ['SP_API_MARKETPLACE_ID'] = 'A1AM78C64UM0Y8'  # Mexico marketplace
-        
+
         self.stdout.write(
             self.style.SUCCESS("✅ All required environment variables are set")
         )
+
         return True
 
     def test_authentication(self):
@@ -282,7 +284,7 @@ class Command(BaseCommand):
                     # Search for items in the catalog
                     # We'll use a broad search to get items
                     list_items_response = catalog_api.list_items(
-                        marketplace_ids=['A1AM78C64UM0Y8'],  # MX marketplace ID
+                        marketplace_ids=[os.environ.get('AMAZON_MARKETPLACE_ID', 'A1AM78C64UM0Y8')],  # Use from env.local or fallback to MX
                         included_data=['summaries', 'attributes', 'images'],
                         page_size=20  # Limit to 20 items per page for testing
                     )

@@ -35,6 +35,11 @@ class MarketplaceListingSchema(TimestampedSchema):
     permalink: Optional[str] = None
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+    # Add images array
+    images: Optional[List[Dict[str, Any]]] = None
+    main_image_url: Optional[str] = None
+    image_count: Optional[int] = None
+
 
 class ProductMatchSchema(TimestampedSchema):
     """Product match schema"""

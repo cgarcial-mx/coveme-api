@@ -3,7 +3,7 @@ from .models import MarketplaceListing, ProductMatch, ProductPriceHistory, Produ
 
 @admin.register(MarketplaceListing)
 class MarketplaceListingAdmin(admin.ModelAdmin):
-    list_display = ['marketplace_type', 'marketplace_id', 'client', 'price', 'status']
+    list_display = ['marketplace_type', 'external_sku', 'title', 'client', 'price', 'status']
     list_filter = ['marketplace_type', 'status', 'client']
     search_fields = ['marketplace_id', 'title']
 

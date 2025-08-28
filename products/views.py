@@ -13,7 +13,9 @@ class ProductViewSet(ClientContextMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         """Filtrar productos por el cliente del usuario autenticado"""
         client_id = self.get_client_from_request(self.request)
-        return Product.objects.filter(client_id=client_id)
+        return Product.objects.filter(client_id=client_id).select_related(
+            'brand', 'subbrand', 'provider'
+        )
 
 class BrandViewSet(ClientContextMixin, viewsets.ModelViewSet):
     queryset = Brand.objects.all()  # Fallback para basename

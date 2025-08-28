@@ -81,6 +81,7 @@ class ClientMarketplaceCredentials(TimestampedModel):
         ('ebay', 'eBay'),
         ('walmart', 'Walmart'),
     ])
+    name = models.CharField(max_length=100, help_text="Nombre o alias para identificar esta credencial")
     marketplace_name = models.CharField(max_length=100, null=True, blank=True)
     credentials = models.JSONField()  # Credenciales encriptadas
     settings = models.JSONField(default=dict, blank=True)
@@ -93,10 +94,34 @@ class ClientMarketplaceCredentials(TimestampedModel):
     last_sync_at = models.DateTimeField(null=True, blank=True)
     last_error = models.TextField(null=True, blank=True)
     created_by = models.ForeignKey('core.User', on_delete=models.SET_NULL, null=True, blank=True)
+    is_active = models.BooleanField(default=True, help_text="Indica si esta credencial está activa")
     
     class Meta:
         db_table = 'client_marketplace_credentials'
-        unique_together = ['client', 'marketplace_type']
+        unique_together = ['client', 'marketplace_type', 'name']
+        ordering = ['-created_at']
     
     def __str__(self):
-        return f"{self.client.name} - {self.get_marketplace_type_display()}"
+        return f"{self.client.name} - {self.get_marketplace_type_display()} - {self.name}"
+    
+    def clean(self):
+        """Validación personalizada del modelo"""
+        from django.core.exceptions import ValidationError
+        
+        # Verificar que el nombre sea único para este cliente y tipo de marketplace
+        if self.name:
+            existing = ClientMarketplaceCredentials.objects.filter(
+                client=self.client,
+                marketplace_type=self.marketplace_type,
+                name=self.name
+            ).exclude(pk=self.pk)
+            
+            if existing.exists():
+                raise ValidationError({
+                    'name': f'Ya existe una credencial con el nombre "{self.name}" para {self.get_marketplace_type_display()}'
+                })
+    
+    def save(self, *args, **kwargs):
+        """Sobrescribir save para incluir validación personalizada"""
+        self.clean()
+        super().save(*args, **kwargs)

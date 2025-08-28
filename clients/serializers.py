@@ -19,15 +19,41 @@ class ClientSerializer(PydanticModelSerializer):
 
 
 class ClientMarketplaceCredentialsSerializer(PydanticModelSerializer, ClientContextMixin):
-    """Serializer para credenciales de marketplace que extrae client_id del JWT"""
+    """Serializer para credenciales de marketplace con validación Pydantic"""
     
     class Meta:
         model = ClientMarketplaceCredentials
-        fields = '__all__'
+        fields = [
+            'id', 'client', 'marketplace_type', 'name', 'marketplace_name', 
+            'credentials', 'settings', 'webhook_url', 'connection_status', 
+            'last_sync_at', 'last_error', 'created_by', 'is_active',
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'client', 'connection_status', 'last_sync_at', 'last_error', 'created_by', 'created_at', 'updated_at']
+        pydantic_schema=ClientMarketplaceCredentialsSchema,
         extra_kwargs = {
-            'credentials': {'write_only': True},
-            'client': {'read_only': True}  # El client se asigna automáticamente
+            'client': {'read_only': True}
         }
+    
+    def validate(self, data):
+        """Validación personalizada"""
+        # Verificar que no haya duplicados
+        marketplace_type = data.get('marketplace_type')
+        name = data.get('name')
+        
+        if marketplace_type and name and 'client_id' in data:
+            existing_credential = ClientMarketplaceCredentials.objects.filter(
+                client_id=data['client_id'],
+                marketplace_type=marketplace_type,
+                name=name
+            ).exclude(pk=getattr(self.instance, 'pk', None)).first()
+            
+            if existing_credential:
+                raise serializers.ValidationError(
+                    f"Ya existen credenciales con el nombre '{name}' para {marketplace_type}"
+                )
+        
+        return data
     
     def __init__(self, *args, **kwargs):
         super().__init__(
@@ -98,18 +124,21 @@ class ClientMarketplaceCredentialsSerializer(PydanticModelSerializer, ClientCont
             client_id = self.get_client_from_request(request)
             data['client_id'] = client_id
         
-        # Verificar que no haya duplicados
+        # Validar que el nombre sea único para este cliente y tipo de marketplace
         marketplace_type = data.get('marketplace_type')
-        if marketplace_type and 'client_id' in data:
+        name = data.get('name')
+        
+        if marketplace_type and name and 'client_id' in data:
             existing_credential = ClientMarketplaceCredentials.objects.filter(
                 client_id=data['client_id'],
-                marketplace_type=marketplace_type
-            ).exclude(pk=getattr(self.instance, 'pk', None)).first()
+                marketplace_type=marketplace_type,
+                name=name
+            ).first()
             
             if existing_credential:
-                raise serializers.ValidationError(
-                    f"Ya existen credenciales para este cliente en {marketplace_type}"
-                )
+                raise serializers.ValidationError({
+                    'name': f"Ya existe una credencial con el nombre '{name}' para {marketplace_type}"
+                })
         
         return data
 
@@ -118,9 +147,10 @@ class MarketplaceCredentialsCreateSerializer(serializers.ModelSerializer, Client
     
     class Meta:
         model = ClientMarketplaceCredentials
-        fields = ['marketplace_type', 'marketplace_name', 'credentials', 'settings', 'webhook_url']
+        fields = ['marketplace_type', 'name', 'marketplace_name', 'credentials', 'settings', 'webhook_url', 'is_active']
         extra_kwargs = {
-            'client': {'read_only': True}  # Se asigna automáticamente
+            'client': {'read_only': True},  # Se asigna automáticamente
+            'name': {'required': True}
         }
     
     def validate_credentials(self, value):
@@ -185,8 +215,21 @@ class MarketplaceCredentialsCreateSerializer(serializers.ModelSerializer, Client
             client_id = self.get_client_from_request(request)
             data['client_id'] = client_id
         
-        # Removemos la validación de duplicados ya que ahora permitimos upsert
-        # La lógica de upsert se maneja en el viewset
+        # Validar que el nombre sea único para este cliente y tipo de marketplace
+        marketplace_type = data.get('marketplace_type')
+        name = data.get('name')
+        
+        if marketplace_type and name and 'client_id' in data:
+            existing_credential = ClientMarketplaceCredentials.objects.filter(
+                client_id=data['client_id'],
+                marketplace_type=marketplace_type,
+                name=name
+            ).first()
+            
+            if existing_credential:
+                raise serializers.ValidationError({
+                    'name': f"Ya existe una credencial con el nombre '{name}' para {marketplace_type}"
+                })
         
         return data
 
@@ -195,52 +238,21 @@ class MarketplaceCredentialsUpdateSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ClientMarketplaceCredentials
-        fields = ['marketplace_name', 'credentials', 'settings', 'webhook_url']
+        fields = ['name', 'marketplace_name', 'credentials', 'settings', 'webhook_url', 'is_active']
     
-    def validate_credentials(self, value):
-        """Validar credenciales según el tipo de marketplace"""
-        if not isinstance(value, dict):
-            raise serializers.ValidationError("Las credenciales deben ser un objeto JSON")
+    def validate(self, data):
+        """Validación personalizada para actualización"""
+        # Verificar que el nombre sea único si se está cambiando
+        if 'name' in data and self.instance:
+            existing_credential = ClientMarketplaceCredentials.objects.filter(
+                client=self.instance.client,
+                marketplace_type=self.instance.marketplace_type,
+                name=data['name']
+            ).exclude(pk=self.instance.pk).first()
+            
+            if existing_credential:
+                raise serializers.ValidationError({
+                    'name': f"Ya existe una credencial con el nombre '{data['name']}' para {self.instance.get_marketplace_type_display()}"
+                })
         
-        # Obtener el tipo de marketplace del objeto existente
-        marketplace_type = self.instance.marketplace_type if self.instance else None
-        
-        if not marketplace_type:
-            raise serializers.ValidationError("No se puede determinar el tipo de marketplace")
-        
-        # Validar según el tipo de marketplace
-        try:
-            if marketplace_type == 'amazon':
-                self._validate_aws_credentials(value)
-            elif marketplace_type == 'mercadolibre':
-                self._validate_mercadolibre_credentials(value)
-            elif marketplace_type == 'shopify':
-                self._validate_shopify_credentials(value)
-            else:
-                # Para otros marketplaces, solo validar que sea un JSON válido
-                pass
-        except Exception as e:
-            raise serializers.ValidationError(f"Credenciales inválidas para {marketplace_type}: {str(e)}")
-        
-        return value
-    
-    def _validate_aws_credentials(self, credentials):
-        """Validar credenciales de AWS"""
-        required_fields = ['aws_access_key_id', 'aws_secret_access_key', 'aws_region', 'marketplace_id', 'seller_id']
-        for field in required_fields:
-            if field not in credentials or not credentials[field]:
-                raise serializers.ValidationError(f"Campo requerido: {field}")
-    
-    def _validate_mercadolibre_credentials(self, credentials):
-        """Validar credenciales de Mercado Libre"""
-        required_fields = ['access_token', 'refresh_token', 'user_id', 'country_code', 'site_id']
-        for field in required_fields:
-            if field not in credentials or not credentials[field]:
-                raise serializers.ValidationError(f"Campo requerido: {field}")
-    
-    def _validate_shopify_credentials(self, credentials):
-        """Validar credenciales de Shopify"""
-        required_fields = ['shop_url', 'access_token']
-        for field in required_fields:
-            if field not in credentials or not credentials[field]:
-                raise serializers.ValidationError(f"Campo requerido: {field}")
+        return data

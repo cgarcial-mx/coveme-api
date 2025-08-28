@@ -51,6 +51,41 @@ class MarketplaceListing(TimestampedModel):
     thumbnail_url = models.URLField(max_length=500, null=True, blank=True)
     permalink = models.URLField(max_length=500, null=True, blank=True)
     metadata = models.JSONField(default=dict, blank=True)
+    
+    # Image-related properties
+    @property
+    def main_image_url(self):
+        """Obtener la URL de la imagen principal"""
+        main_image = self.listing_images.first()
+        if main_image:
+            return main_image.url
+        return self.thumbnail_url
+    
+    @property
+    def image_count(self):
+        """Número total de imágenes"""
+        return self.listing_images.count()
+```
+
+### MarketplaceListingImage Model
+
+```python
+class MarketplaceListingImage(TimestampedModel):
+    """Imágenes de los listings de marketplace"""
+    listing = models.ForeignKey('marketplaces.MarketplaceListing', on_delete=models.CASCADE, related_name='listing_images')
+    external_id = models.CharField(max_length=100, null=True, blank=True)
+    position = models.IntegerField(default=1)
+    url = models.URLField(max_length=500)
+    alt_text = models.CharField(max_length=200, null=True, blank=True)
+    width = models.IntegerField(null=True, blank=True)
+    height = models.IntegerField(null=True, blank=True)
+    variant_ids = models.JSONField(default=list, blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+    
+    class Meta:
+        db_table = 'marketplace_listing_images'
+        ordering = ['position']
+        unique_together = ['listing', 'position']
 ```
 
 ### Pydantic Schemas
@@ -76,6 +111,26 @@ class MarketplaceListingSchema(TimestampedSchema):
     official_store_name: Optional[str] = None
     thumbnail_url: Optional[str] = None
     permalink: Optional[str] = None
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+    
+    # New image-related fields
+    images: Optional[List[Dict[str, Any]]] = None
+    main_image_url: Optional[str] = None
+    image_count: Optional[int] = None
+```
+
+#### MarketplaceListingImageSchema
+```python
+class MarketplaceListingImageSchema(TimestampedSchema):
+    id: Optional[int] = None
+    listing_id: int
+    external_id: Optional[str] = None
+    position: int = Field(default=1)
+    url: str
+    alt_text: Optional[str] = None
+    width: Optional[int] = None
+    height: Optional[int] = None
+    variant_ids: List[str] = Field(default_factory=list)
     metadata: Dict[str, Any] = Field(default_factory=dict)
 ```
 
@@ -122,6 +177,53 @@ class MarketplaceListingUpdateSchema(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 ```
 
+## Image Management
+
+### Image Structure
+Each marketplace listing can have multiple images with the following structure:
+
+```json
+{
+  "images": [
+    {
+      "id": 1,
+      "position": 1,
+      "url": "https://example.com/main-image.jpg",
+      "alt_text": "Main product image",
+      "width": 800,
+      "height": 600,
+      "variant_ids": ["var1", "var2"],
+      "metadata": {
+        "is_primary": true,
+        "color": "black"
+      }
+    },
+    {
+      "id": 2,
+      "position": 2,
+      "url": "https://example.com/secondary-image.jpg",
+      "alt_text": "Product side view",
+      "width": 800,
+      "height": 600,
+      "variant_ids": [],
+      "metadata": {
+        "angle": "side"
+      }
+    }
+  ],
+  "main_image_url": "https://example.com/main-image.jpg",
+  "image_count": 2
+}
+```
+
+### Image Properties
+- **main_image_url**: Automatically returns the first image URL or falls back to thumbnail_url
+- **image_count**: Total number of images associated with the listing
+- **images**: Array of all images with metadata and positioning
+
+### Image Ordering
+Images are automatically ordered by the `position` field, with position 1 being the primary/main image.
+
 ## API Endpoints
 
 ### Base Endpoint
@@ -149,7 +251,7 @@ class MarketplaceListingViewSet(ClientContextMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         """Automatically filter listings by authenticated user's client"""
         client_id = self.get_client_from_request(self.request)
-        return MarketplaceListing.objects.filter(client_id=client_id)
+        return MarketplaceListing.objects.filter(client_id=client_id).prefetch_related('listing_images')
 ```
 
 **Benefits:**
@@ -157,6 +259,7 @@ class MarketplaceListingViewSet(ClientContextMixin, viewsets.ModelViewSet):
 - ✅ **Data Isolation**: Users only see their own client's listings
 - ✅ **Simplified API**: Cleaner request/response payloads
 - ✅ **JWT Integration**: Seamless authentication and authorization
+- ✅ **Image Optimization**: Images are loaded efficiently with prefetch_related
 
 ### CRUD Operations
 
@@ -213,6 +316,9 @@ class MarketplaceListingViewSet(ClientContextMixin, viewsets.ModelViewSet):
     "official_store_name": "TechStore",
     "thumbnail_url": "https://example.com/image.jpg",
     "permalink": "https://amazon.com/product/B08N5WRWNW",
+    "images": [],
+    "main_image_url": "https://example.com/image.jpg",
+    "image_count": 0,
     "metadata": {
         "category": "Electronics",
         "brand": "TechBrand",
@@ -234,10 +340,13 @@ class MarketplaceListingViewSet(ClientContextMixin, viewsets.ModelViewSet):
 - `client`: Filter by client ID
 - `marketplace_type`: Filter by marketplace type (amazon, mercadolibre, shopify, ebay, walmart)
 - `status`: Filter by status
+- `has_images`: Boolean - Filter listings that have images
+- `image_count_min`: Integer - Minimum number of images
+- `image_count_max`: Integer - Maximum number of images
 
 **Example:**
 ```bash
-GET /marketplace-listings/?marketplace_type=amazon&status=active
+GET /marketplace-listings/?marketplace_type=amazon&status=active&has_images=true
 ```
 
 **Response (200 OK):**
@@ -257,6 +366,18 @@ GET /marketplace-listings/?marketplace_type=amazon&status=active
             "price": "29.99",
             "currency": "USD",
             "status": "active",
+            "images": [
+                {
+                    "id": 1,
+                    "position": 1,
+                    "url": "https://example.com/main-image.jpg",
+                    "alt_text": "Main product image",
+                    "width": 800,
+                    "height": 600
+                }
+            ],
+            "main_image_url": "https://example.com/main-image.jpg",
+            "image_count": 1,
             "created_at": "2024-01-15T10:30:00Z",
             "updated_at": "2024-01-15T10:30:00Z"
         },
@@ -270,6 +391,9 @@ GET /marketplace-listings/?marketplace_type=amazon&status=active
             "price": "9.99",
             "currency": "USD",
             "status": "active",
+            "images": [],
+            "main_image_url": null,
+            "image_count": 0,
             "created_at": "2024-01-15T11:00:00Z",
             "updated_at": "2024-01-15T11:00:00Z"
         }
@@ -280,7 +404,7 @@ GET /marketplace-listings/?marketplace_type=amazon&status=active
 ##### Get Single Listing
 **GET** `/marketplace-listings/{id}/`
 
-**Response (200 OK):**
+**Response (200 OK) with Images:**
 ```json
 {
     "id": 1,
@@ -301,6 +425,35 @@ GET /marketplace-listings/?marketplace_type=amazon&status=active
     "official_store_name": "TechStore",
     "thumbnail_url": "https://example.com/image.jpg",
     "permalink": "https://amazon.com/product/B08N5WRWNW",
+    "images": [
+        {
+            "id": 1,
+            "position": 1,
+            "url": "https://example.com/main-image.jpg",
+            "alt_text": "Main product image",
+            "width": 800,
+            "height": 600,
+            "variant_ids": ["var1", "var2"],
+            "metadata": {
+                "is_primary": true,
+                "color": "black"
+            }
+        },
+        {
+            "id": 2,
+            "position": 2,
+            "url": "https://example.com/secondary-image.jpg",
+            "alt_text": "Product side view",
+            "width": 800,
+            "height": 600,
+            "variant_ids": [],
+            "metadata": {
+                "angle": "side"
+            }
+        }
+    ],
+    "main_image_url": "https://example.com/main-image.jpg",
+    "image_count": 2,
     "metadata": {
         "category": "Electronics",
         "brand": "TechBrand",
@@ -352,6 +505,18 @@ GET /marketplace-listings/?marketplace_type=amazon&status=active
     "official_store_name": "TechStore",
     "thumbnail_url": "https://example.com/image.jpg",
     "permalink": "https://amazon.com/product/B08N5WRWNW",
+    "images": [
+        {
+            "id": 1,
+            "position": 1,
+            "url": "https://example.com/main-image.jpg",
+            "alt_text": "Main product image",
+            "width": 800,
+            "height": 600
+        }
+    ],
+    "main_image_url": "https://example.com/main-image.jpg",
+    "image_count": 1,
     "metadata": {
         "category": "Electronics",
         "brand": "TechBrand",
@@ -403,12 +568,29 @@ GET /marketplace-listings/?marketplace_type=amazon&status=active
 - `permalink`: URL - Direct link to product (max 500 chars)
 - `metadata`: JSON - Additional data in key-value format
 
+### New Image-Related Fields
+- `images`: Array of image objects with full metadata
+- `main_image_url`: String - URL of the primary image (auto-calculated)
+- `image_count`: Integer - Total number of images (auto-calculated)
+
+### Image Object Fields
+- `id`: Integer - Unique image identifier
+- `position`: Integer - Image position/order (1 = primary)
+- `url`: String - Image URL (required)
+- `alt_text`: String - Alternative text for accessibility
+- `width`: Integer - Image width in pixels
+- `height`: Integer - Image height in pixels
+- `variant_ids`: Array - Associated product variant IDs
+- `metadata`: JSON - Additional image-specific data
+
 ### Validation Rules
 - `marketplace_type` must be one of the predefined choices
 - `price`, `listing_fee`, `shipment_fee` must be positive decimal numbers
 - `inventory_quantity` must be a non-negative integer
 - URLs must be valid URL format
 - `metadata` must be valid JSON
+- Image `position` must be a positive integer
+- Image `url` must be a valid URL when provided
 
 ## Error Responses
 
@@ -448,6 +630,9 @@ GET /marketplace-listings/?marketplace_type=amazon&status=active
 - `is_fulfillment`: Filter by fulfillment type
 - `price_min`: Filter by minimum price
 - `price_max`: Filter by maximum price
+- `has_images`: Boolean - Filter listings that have images
+- `image_count_min`: Integer - Minimum number of images
+- `image_count_max`: Integer - Maximum number of images
 
 ### Example Queries
 ```bash
@@ -459,6 +644,15 @@ GET /marketplace-listings/?status=active&price_min=10&price_max=100
 
 # Get all fulfillment listings
 GET /marketplace-listings/?is_fulfillment=true
+
+# Get listings with images
+GET /marketplace-listings/?has_images=true
+
+# Get listings with at least 3 images
+GET /marketplace-listings/?image_count_min=3
+
+# Get Amazon listings with images
+GET /marketplace-listings/?marketplace_type=amazon&has_images=true
 ```
 
 ## Bulk Operations
@@ -513,6 +707,9 @@ Tracks price changes over time for analysis and reporting.
 ### ProductTracing
 Monitors competitor products and pricing across marketplaces.
 
+### MarketplaceListingImage
+Manages multiple images for each marketplace listing with positioning and metadata.
+
 ## Usage Examples
 
 ### Python Requests
@@ -540,6 +737,9 @@ response = requests.patch(update_url, json=update_data)
 listings_url = "http://localhost:8000/api/v1/marketplace-listings/?marketplace_type=amazon"
 response = requests.get(listings_url)
 listings = response.json()
+
+# Get listings with images
+listings_with_images = requests.get("http://localhost:8000/api/v1/marketplace-listings/?has_images=true")
 ```
 
 ### cURL Examples
@@ -557,6 +757,9 @@ curl -X POST "http://localhost:8000/api/v1/marketplace-listings/" \
 
 # Get listings
 curl -X GET "http://localhost:8000/api/v1/marketplace-listings/?marketplace_type=amazon"
+
+# Get listings with images
+curl -X GET "http://localhost:8000/api/v1/marketplace-listings/?has_images=true"
 
 # Update listing
 curl -X PATCH "http://localhost:8000/api/v1/marketplace-listings/1/" \
@@ -576,6 +779,9 @@ curl -X DELETE "http://localhost:8000/api/v1/marketplace-listings/1/"
 5. **Monitoring**: Monitor API usage and performance metrics
 6. **Security**: Use proper authentication and authorization
 7. **Documentation**: Keep API documentation updated with any changes
+8. **Image Management**: Use appropriate image sizes and formats for optimal performance
+9. **Image Metadata**: Include descriptive alt_text for accessibility
+10. **Image Ordering**: Use position field to control image display order
 
 ## Support
 

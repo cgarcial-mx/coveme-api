@@ -551,6 +551,7 @@ def create_or_update_shopify_product(client, shopify_product):
         
         # Get clean SKU for matching (without marketplace prefixes)
         variants = shopify_product.get('variants', [])
+        print(f"Variants for {shopify_product.get('title')}: {json.dumps(variants, indent=2)}")
         internal_sku = get_product_sku_from_variants(variants, shopify_product)
         
         if not internal_sku:
@@ -648,6 +649,7 @@ def create_or_update_shopify_listing(client, shopify_product):
         if variants:
             variant = variants[0]
             price = variant.get('price')
+            sku = variant.get('sku')
             if price:
                 try:
                     listing_data['price'] = float(price)
@@ -655,6 +657,8 @@ def create_or_update_shopify_listing(client, shopify_product):
                     pass
             
             inventory_quantity = variant.get('inventory_quantity')
+            if sku:
+                listing_data['external_sku'] = sku
             if inventory_quantity is not None:
                 listing_data['inventory_quantity'] = int(inventory_quantity)
         
@@ -1016,6 +1020,8 @@ def get_product_sku_from_variants(variants, product_data=None):
     # For Shopify, use product ID as fallback
     if product_data and product_data.get('id'):
         return get_platform_specific_sku('shopify', product_data.get('id'))
+
+    print(f"SKU for {product_data.get('title')} is {sku}")
     
     return None
 

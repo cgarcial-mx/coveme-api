@@ -55,16 +55,31 @@ def django_to_pydantic(django_obj: models.Model, pydantic_class: Type[T]) -> T:
         else:
             data[field.name] = value
     
-    # Handle related fields
-    for field in django_obj._meta.related_objects:
-        if hasattr(django_obj, field.name):
-            related_obj = getattr(django_obj, field.name)
+    # Handle related fields - check for common patterns
+    related_fields = ['brand', 'subbrand', 'provider', 'client', 'created_by']
+    for field_name in related_fields:
+        if hasattr(django_obj, field_name):
+            related_obj = getattr(django_obj, field_name)
             if related_obj is not None:
-                if hasattr(related_obj, 'id'):
-                    data[f"{field.name}_id"] = related_obj.id
-                # Add related object name if it exists
+                # Add the related object ID if not already present
+                if f"{field_name}_id" not in data:
+                    data[f"{field_name}_id"] = related_obj.id
+                
+                # Add the related object name if it exists
                 if hasattr(related_obj, 'name'):
-                    data[f"{field.name}_name"] = related_obj.name
+                    data[f"{field_name}_name"] = related_obj.name
+    
+    # Check for properties that might contain related names
+    property_fields = ['brand_name', 'subbrand_name', 'provider_name']
+    for prop_name in property_fields:
+        if hasattr(django_obj, prop_name):
+            try:
+                prop_value = getattr(django_obj, prop_name)
+                if prop_value is not None:
+                    data[prop_name] = prop_value
+            except Exception:
+                # Skip if property access fails
+                pass
     
     return dict_to_pydantic(data, pydantic_class)
 

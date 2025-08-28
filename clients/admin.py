@@ -38,14 +38,14 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(ClientMarketplaceCredentials)
 class ClientMarketplaceCredentialsAdmin(admin.ModelAdmin):
-    list_display = ['client', 'marketplace_type', 'connection_status_display', 'last_sync_at', 'test_connection_button', 'sync_products_button']
+    list_display = ['client', 'name', 'marketplace_type', 'connection_status_display', 'last_sync_at', 'test_connection_button', 'sync_products_button']
     list_filter = ['marketplace_type', 'connection_status']
     search_fields = ['client__name']
     readonly_fields = ['created_at', 'updated_at', 'last_sync_at', 'last_error']
     
     fieldsets = (
         ('Basic Information', {
-            'fields': ('client', 'marketplace_type', 'marketplace_name')
+            'fields': ('client', 'name', 'marketplace_type', 'marketplace_name')
         }),
         ('Credentials', {
             'fields': ('credentials', 'settings', 'webhook_url'),

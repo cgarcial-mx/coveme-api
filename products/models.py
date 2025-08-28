@@ -65,3 +65,18 @@ class Product(TimestampedModel):
     
     def __str__(self):
         return f"{self.internal_sku} - {self.title}"
+    
+    @property
+    def brand_name(self):
+        """Get brand name or None"""
+        return self.brand.name if self.brand else None
+    
+    @property
+    def subbrand_name(self):
+        """Get subbrand name or None"""
+        return self.subbrand.name if self.subbrand else None
+    
+    @property
+    def provider_name(self):
+        """Get provider name or None"""
+        return self.provider.name if self.provider else None
